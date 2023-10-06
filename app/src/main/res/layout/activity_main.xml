@@ -6,13 +6,138 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/country_name_edit_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/confirm_button"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_width="265dp"
+        android:layout_height="50dp"
+        android:text="Name"/>
+
+    <Button
+        android:id="@+id/confirm_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Button"
+        app:layout_constraintStart_toEndOf="@+id/country_name_edit_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="125dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:src="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/country_name_edit_text"
+        tools:srcCompat="@tools:sample/avatars"/>
+
     <TextView
+        android:id="@+id/country_name_text_view"
+        android:text="TextView"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="#808080"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/photo"
+        app:layout_constraintTop_toBottomOf="@+id/country_name_edit_text"
+        android:textSize="25dp"/>
+    <TextView
+        android:id="@+id/text_view1"
+        android:text="Столица:"
+        android:textColor="#808080"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/photo"
+        app:layout_constraintTop_toBottomOf="@+id/country_name_text_view"
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/capital_text_view"
+        android:text="TextView"
+        android:textColor="#808080"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/text_view1"
+        app:layout_constraintTop_toBottomOf="@+id/country_name_text_view"
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/text_view2"
+        android:text="Население:"
+        android:textColor="#808080"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/photo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/population_text_view"
+        android:text="TextView"
+        android:textColor="#808080"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/photo"
+        app:layout_constraintStart_toEndOf="@+id/text_view2"
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/text_view3"
+        android:text="Площадь:"
+        android:textColor="#808080"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/text_view2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/area_text_view"
+        android:text="TextView"
+        android:textColor="#808080"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/population_text_view"
+        app:layout_constraintStart_toEndOf="@+id/text_view3"
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/text_view4"
+        android:text="Языки:"
+        android:textColor="#808080"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/text_view3"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/languages_text_view"
+        android:text="TextView"
+        android:textColor="#808080"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/area_text_view"
+        app:layout_constraintStart_toEndOf="@+id/text_view4"
+        android:textSize="15dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
