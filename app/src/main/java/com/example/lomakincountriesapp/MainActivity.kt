@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         val endTime = Calendar.getInstance().time
-        Toast.makeText(this, "Время неактивности приложения: ${endTime.time.minus(startTime.time)/1000} секунд", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Время неактивности приложения: ${endTime.time.minus(startTime.time)/1000}с", Toast.LENGTH_LONG).show()
     }
 
 
