@@ -8,7 +8,6 @@ import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     private var startTime: Date = Calendar.getInstance().time
-    private var endTime: Date = Calendar.getInstance().time
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -20,8 +19,8 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onRestart() {
         super.onRestart()
-        endTime = Calendar.getInstance().time
-        Toast.makeText(this, "Время неактивности приложения: ${endTime.time.minus(startTime.time)/1000}", Toast.LENGTH_LONG).show()
+        val endTime = Calendar.getInstance().time
+        Toast.makeText(this, "Время неактивности приложения: ${endTime.time.minus(startTime.time)/1000} секунд", Toast.LENGTH_LONG).show()
     }
 
 
