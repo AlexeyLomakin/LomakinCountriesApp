@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">LomakinCountriesApp</string>
     <string name="title_activity_second">SecondActivity</string>
+    <string name="search_countries_button">Поиск страны</string>
+    <string name="countries_list">Список стран</string>
+    <string name="search_country_button">Поиск</string>
+    <string name="search_hint">Введите название страны</string>
 </resources>
