@@ -17,7 +17,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
            countriesListButton.setOnClickListener {
                requireActivity().supportFragmentManager.beginTransaction().replace(
                    R.id.FragmentContainerView,
-                   DetailsFragment()
+                   CountriesListFragment()
                ).commit()
             }
             searchButton.setOnClickListener {

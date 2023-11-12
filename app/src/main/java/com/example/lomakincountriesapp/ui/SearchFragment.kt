@@ -3,7 +3,6 @@ package com.example.lomakincountriesapp.ui
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -12,6 +11,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.databinding.SearchFragmentBinding
 import com.example.lomakincountriesapp.network.CountriesService
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,31 +29,45 @@ class SearchFragment: Fragment(R.layout.search_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            val retrofit = Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+            val retrofit = Retrofit.
+                Builder()
+                .addConverterFactory(
+                    GsonConverterFactory.
+                create()
+                )
                 .baseUrl(baseUrl)
                 .build()
             val retrofitService: CountriesService by lazy {
-                retrofit.create(CountriesService::class.java)
+                retrofit.
+                create(CountriesService::class.java)
             }
 
-            var capital: String? = null
             searchButton.setOnClickListener {
 
-                CoroutineScope(Dispatchers.Main).launch {
-                    capital =
-                        retrofitService.getCountryByName(binding.countryTextSearch.text.toString())
-                            .map {
-                                it.capital
-                            }.toString()
-                    capital = capital?.replace("[", "")?.replace("]", "")
-                    setFragmentResult("requestKey", bundleOf("bundleKey" to capital))
+                CoroutineScope(Dispatchers.Main).
+                launch {
+                    val getCountry = retrofitService.
+                    getCountryByName(
+                        binding.
+                        countryTextSearch.
+                        text.
+                        toString()
+                    )
+
+                    val jsonString = Gson().
+                    toJson(getCountry)
+
+
+                    setFragmentResult("requestKey",
+                        bundleOf("bundleKey" to jsonString))
+                    requireActivity().
+                    supportFragmentManager.
+                    beginTransaction().
+                    replace(
+                        R.id.FragmentContainerView,
+                        DetailsFragment()
+                    ).commit()
                 }
-                Toast.makeText(activity, "$capital", Toast.LENGTH_SHORT).show()
-                requireActivity().supportFragmentManager.beginTransaction().replace(
-                    R.id.FragmentContainerView,
-                    DetailsFragment()
-                ).commit()
             }
         }
     }

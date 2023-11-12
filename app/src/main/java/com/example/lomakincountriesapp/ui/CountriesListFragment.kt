@@ -40,7 +40,7 @@ class CountriesListFragment: Fragment(R.layout.countries_list_fragment) {
                     listOfCountries.add(
                         retrofitService.getAllCountries()
                             .map {
-                                it.name?.official
+                                it.name
                             }.toString()
                     )
                 Log.d("list","$listOfCountries")
