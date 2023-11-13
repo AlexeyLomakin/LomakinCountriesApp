@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //коммит в мастере
+        //коммит в новую ветку
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
