@@ -2,6 +2,7 @@ package com.example.lomakincountriesapp.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
@@ -57,6 +58,7 @@ class SearchFragment: Fragment(R.layout.search_fragment) {
                     val jsonString = Gson().
                     toJson(getCountry)
 
+                    Log.d("capital", jsonString)
 
                     setFragmentResult("requestKey",
                         bundleOf("bundleKey" to jsonString))
