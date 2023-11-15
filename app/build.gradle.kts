@@ -64,4 +64,7 @@ dependencies {
 
     //ViewBindingPropertyDelegate
     implementation ("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
+
+    //Glade
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }

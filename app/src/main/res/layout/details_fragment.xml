@@ -14,15 +14,15 @@
     android:layout_height="100dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:src="@color/black"
-    tools:srcCompat="@tools:sample/avatars" />
+    tools:srcCompat="@tools:sample/avatars"/>
 
     <TextView
         android:id="@+id/country_name"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:textSize="30sp"
+        app:layout_constraintLeft_toRightOf="@+id/flag"
+        android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/flag"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/area_text"
         app:layout_constraintTop_toBottomOf="@+id/flag" />
 
@@ -61,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+
         app:layout_constraintStart_toEndOf="@+id/population_text"
         app:layout_constraintTop_toBottomOf="@+id/area_text_info" />
 
@@ -80,7 +79,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/languages_text"
         app:layout_constraintTop_toBottomOf="@+id/population_text_info" />
 
@@ -98,7 +96,6 @@
         android:id="@+id/capital_text_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toEndOf="@+id/capital_text"
