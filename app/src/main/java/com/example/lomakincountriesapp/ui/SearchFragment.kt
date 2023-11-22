@@ -1,7 +1,6 @@
 package com.example.lomakincountriesapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -53,14 +52,12 @@ class SearchFragment: Fragment(R.layout.search_fragment) {
                     val jsonString = Gson()
                         .toJson(country)
 
-                    Log.d("capital", jsonString)
                     withContext(Dispatchers.Main) {
                         setFragmentResult(
                             "requestKey",
                             bundleOf("bundleKey" to jsonString)
                         )
                     }
-
 
                     requireActivity().supportFragmentManager.beginTransaction().replace(
                         R.id.FragmentContainerView,
