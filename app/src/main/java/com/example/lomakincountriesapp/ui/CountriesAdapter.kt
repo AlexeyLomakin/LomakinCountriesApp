@@ -11,9 +11,7 @@ import com.example.lomakincountriesapp.R
 
 class CountriesAdapter(context: Context, viewId: Int, private val items: List<String?>): ArrayAdapter<String?>(context,viewId, items) {
 
-    override fun getCount(): Int {
-        return items.size
-    }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         val  convertView = LayoutInflater
@@ -22,7 +20,7 @@ class CountriesAdapter(context: Context, viewId: Int, private val items: List<St
                 parent,
                 false)
 
-        val textView = convertView.findViewById<TextView>(R.id.tv)
+        val textView = convertView.findViewById<TextView>(R.id.text_view)
         val imageView = convertView.findViewById<ImageView>(R.id.flag)
         textView.text = items[position]
 
