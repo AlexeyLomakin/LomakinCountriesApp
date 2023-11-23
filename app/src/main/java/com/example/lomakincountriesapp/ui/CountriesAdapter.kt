@@ -9,9 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.lomakincountriesapp.R
 
-class CountriesAdapter(context: Context, viewId: Int, items: List<String?>): ArrayAdapter<String?>(context,viewId, items) {
-
-    private val items = items
+class CountriesAdapter(context: Context, viewId: Int, private val items: List<String?>): ArrayAdapter<String?>(context,viewId, items) {
 
     override fun getCount(): Int {
         return items.size
