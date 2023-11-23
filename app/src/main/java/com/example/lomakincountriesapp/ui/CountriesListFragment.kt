@@ -20,25 +20,33 @@ class CountriesListFragment: Fragment(R.layout.countries_list_fragment) {
     private val baseUrl = "https://restcountries.com/v3.1/"
     private val binding by viewBinding(CountriesListFragmentBinding::bind)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View,
+                               savedInstanceState: Bundle?, ) {
         super.onViewCreated(view, savedInstanceState)
         val retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory
+                .create())
             .baseUrl(baseUrl)
             .build()
-        val retrofitService: CountriesService = retrofit.create(CountriesService::class.java)
+        val retrofitService: CountriesService = retrofit
+            .create(CountriesService::class.java)
 
 
 
         CoroutineScope(Dispatchers.IO).launch {
             val countriesList = retrofitService
                 .getAllCountries()
-            val countriesNameList = countriesList.map { country: Country ->
+
+            val countriesNameList = countriesList
+                .map { country: Country ->
                 country.name?.common
             }
 
             withContext(Dispatchers.Main){
-                val adapter = CountriesAdapter(requireContext(),countriesNameList)
+                val adapter = CountriesAdapter(
+                    requireContext()
+                    ,countriesNameList
+                )
                 binding.countriesList.adapter = adapter
             }
         }

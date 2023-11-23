@@ -22,17 +22,28 @@ class DetailsFragment: Fragment(R.layout.details_fragment) {
                 .setFragmentResultListener(
                 "requestKey",
                 this@DetailsFragment
-            ) { requestKey, bundle ->
+            ) { _, bundle ->
                 val  countryStr = bundle
                     .getString("bundleKey")
                 val country = Gson().fromJson(countryStr
                     , Country::class.java)
-                binding.capitalTextInfo.text = country.capital.first()
-                binding.areaTextInfo.text = country.area.toLong().toString()
-                binding.populationTextInfo.text = country.population.toLong().toString()
-                binding.countryName.text = country.name?.official.toString()
-                binding.languagesTextInfo.text = country.languages.values.joinToString(",")
-                activity?.let { Glide.with(it).load(country.flags?.png).into(binding.flag) }
+                binding.capitalTextInfo.text = country.capital
+                    .first()
+                binding.areaTextInfo.text = country.area
+                    .toLong()
+                    .toString()
+                binding.populationTextInfo.text = country.population
+                    .toLong()
+                    .toString()
+                binding.countryName.text = country.name?.official
+                    .toString()
+                binding.languagesTextInfo.text = country.languages.values
+                    .joinToString(",")
+                activity?.let {
+                    Glide.with(it).
+                    load(country.flags?.png)
+                        .into(binding.flag)
+                }
             }
         }
     }

@@ -35,16 +35,15 @@ class SearchFragment: Fragment(R.layout.search_fragment) {
                 )
                 .baseUrl(baseUrl)
                 .build()
-            val retrofitService: CountriesService by lazy {
-                retrofit
+            val retrofitService: CountriesService = retrofit
                     .create(CountriesService::class.java)
-            }
 
             searchButton.setOnClickListener {
 
                 val countryName = binding.countryTextSearch.text.toString()
 
-                CoroutineScope(Dispatchers.IO).launch {
+                CoroutineScope(Dispatchers.IO)
+                    .launch {
                     val country = retrofitService
                         .getCountryByName(countryName)
                         .first()
@@ -59,7 +58,8 @@ class SearchFragment: Fragment(R.layout.search_fragment) {
                         )
                     }
 
-                    requireActivity().supportFragmentManager.beginTransaction().replace(
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(
                         R.id.FragmentContainerView,
                         DetailsFragment()
                     )
