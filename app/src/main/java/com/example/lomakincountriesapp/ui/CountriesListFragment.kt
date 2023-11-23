@@ -30,8 +30,6 @@ class CountriesListFragment: Fragment(R.layout.countries_list_fragment) {
         val retrofitService: CountriesService = retrofit
             .create(CountriesService::class.java)
 
-
-
         CoroutineScope(Dispatchers.IO).launch {
             val countriesList = retrofitService
                 .getAllCountries()
@@ -43,8 +41,8 @@ class CountriesListFragment: Fragment(R.layout.countries_list_fragment) {
 
             withContext(Dispatchers.Main){
                 val adapter = CountriesAdapter(
-                    requireContext()
-                    ,countriesNameList
+                    requireContext(),
+                    countriesNameList
                 )
                 binding.countriesList.adapter = adapter
             }
