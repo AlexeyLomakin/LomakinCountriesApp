@@ -26,9 +26,9 @@ class CountriesListFragment: Fragment(R.layout.countries_list_fragment) {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
             .build()
-        val retrofitService: CountriesService by lazy {
-            retrofit.create(CountriesService::class.java)
-        }
+        val retrofitService: CountriesService = retrofit.create(CountriesService::class.java)
+
+
 
         CoroutineScope(Dispatchers.IO).launch {
             val countriesList = retrofitService
@@ -38,7 +38,7 @@ class CountriesListFragment: Fragment(R.layout.countries_list_fragment) {
             }
 
             withContext(Dispatchers.Main){
-                val adapter = CountriesAdapter(requireContext(),R.layout.country_fragment,countriesNameList)
+                val adapter = CountriesAdapter(requireContext(),countriesNameList)
                 binding.countriesList.adapter = adapter
             }
         }
