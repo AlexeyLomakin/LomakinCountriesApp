@@ -53,8 +53,8 @@ class SearchFragment: Fragment(R.layout.search_fragment) {
 
                     withContext(Dispatchers.Main) {
                         setFragmentResult(
-                            "requestKey",
-                            bundleOf("bundleKey" to jsonString)
+                            EXTRA_COUNTRY_REQUESTED_KEY,
+                            bundleOf(COUNTRY_BUNDLE_KEY to jsonString)
                         )
                     }
 
@@ -67,5 +67,9 @@ class SearchFragment: Fragment(R.layout.search_fragment) {
                 }
             }
         }
+    }
+    companion object {
+        private const val EXTRA_COUNTRY_REQUESTED_KEY = "EXTRA_COUNTRY_REQUESTED_KEY"
+        private const val COUNTRY_BUNDLE_KEY = "COUNTRY_BUNDLE_KEY"
     }
 }

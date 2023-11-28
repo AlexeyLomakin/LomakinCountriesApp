@@ -17,41 +17,55 @@ class DetailsFragment: Fragment(R.layout.details_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
+
             requireActivity()
                 .supportFragmentManager
                 .setFragmentResultListener(
-                "requestKey",
+                    EXTRA_COUNTRY_REQUESTED_KEY,
                 this@DetailsFragment
             ) { _, bundle ->
                 val  countryStr = bundle
-                    .getString("bundleKey")
+                    .getString(COUNTRY_BUNDLE_KEY)
 
                 val country = Gson().fromJson(countryStr,
                     Country::class.java)
 
-                binding.capitalTextInfo.text = country.capital
+                capitalTextInfo.text = country
+                    .capital
                     .first()
 
-                binding.areaTextInfo.text = country.area
+                areaTextInfo.text = country
+                    .area
                     .toLong()
                     .toString()
 
-                binding.populationTextInfo.text = country.population
+                populationTextInfo.text = country
+                    .population
                     .toLong()
                     .toString()
 
-                binding.countryName.text = country.name?.official
+                countryName.text = country
+                    .name
+                    ?.official
                     .toString()
 
-                binding.languagesTextInfo.text = country.languages.values
+                languagesTextInfo.text = country
+                    .languages
+                    .values
                     .joinToString(",")
 
                 activity?.let {
-                    Glide.with(it).
-                    load(country.flags?.png)
-                        .into(binding.flag)
+                    Glide.with(it)
+                        .load(country.flags?.png)
+                        .into(flag)
                 }
             }
         }
     }
+
+    companion object {
+        private const val EXTRA_COUNTRY_REQUESTED_KEY = "EXTRA_COUNTRY_REQUESTED_KEY"
+        private const val COUNTRY_BUNDLE_KEY = "COUNTRY_BUNDLE_KEY"
+    }
 }
+

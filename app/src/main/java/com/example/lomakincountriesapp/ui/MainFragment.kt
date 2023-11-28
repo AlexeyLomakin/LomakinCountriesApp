@@ -14,12 +14,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
+
            countriesListButton.setOnClickListener {
                requireActivity().supportFragmentManager.beginTransaction().replace(
                    R.id.FragmentContainerView,
                    CountriesListFragment()
                ).commit()
             }
+
             searchButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction().replace(
                     R.id.FragmentContainerView,
