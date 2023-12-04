@@ -16,7 +16,11 @@ class CountriesAdapter(
 ) : RecyclerView.Adapter<CountriesAdapter.CountriesViewHolder>() {
 
     class CountriesViewHolder(view: View) : ViewHolder(view) {
-        val bindings by viewBinding(CountryFragmentBinding::bind)
+        private val bindings by viewBinding(CountryFragmentBinding::bind)
+        fun bind(country: Country) {
+            bindings.textView.text = country.name?.common
+            Glide.with(itemView.context).load(country.flags?.png).into(bindings.flag)
+        }
     }
 
     override fun onCreateViewHolder(
@@ -32,13 +36,6 @@ class CountriesAdapter(
 
     override fun getItemCount(): Int = countriesList.size
 
-    override fun onBindViewHolder(viewHolder: CountriesViewHolder, position: Int) {
-
-        viewHolder.bindings.textView.text = countriesList[position].name?.common
-
-        Glide.with(viewHolder.itemView.context).load(
-            countriesList[position].flags?.png
-        ).into(viewHolder.bindings.flag)
-
-    }
+    override fun onBindViewHolder(viewHolder: CountriesViewHolder, position: Int) =
+        viewHolder.bind(countriesList[position])
 }
