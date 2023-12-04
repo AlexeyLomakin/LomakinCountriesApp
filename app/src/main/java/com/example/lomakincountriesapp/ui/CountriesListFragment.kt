@@ -15,19 +15,19 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CountriesListFragment: Fragment(R.layout.countries_list_fragment) {
+class CountriesListFragment : Fragment(R.layout.countries_list_fragment) {
 
     private val baseUrl = "https://restcountries.com/v3.1/"
     private val binding by viewBinding(CountriesListFragmentBinding::bind)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?, ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val retrofit = Retrofit
             .Builder()
             .addConverterFactory(
                 GsonConverterFactory
-                .create()
+                    .create()
             )
             .baseUrl(baseUrl)
             .build()
@@ -42,8 +42,8 @@ class CountriesListFragment: Fragment(R.layout.countries_list_fragment) {
                 .getAllCountries()
                 .sortedBy { it.name?.common }
 
-            withContext(Dispatchers.Main){
-                
+            withContext(Dispatchers.Main) {
+
                 val adapter = CountriesAdapter(
                     countriesList
                 )

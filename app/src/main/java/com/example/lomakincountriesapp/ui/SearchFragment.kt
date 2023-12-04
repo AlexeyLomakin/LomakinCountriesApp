@@ -18,7 +18,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class SearchFragment: Fragment(R.layout.search_fragment) {
+class SearchFragment : Fragment(R.layout.search_fragment) {
 
 
     private val binding by viewBinding(SearchFragmentBinding::bind)
@@ -27,16 +27,15 @@ class SearchFragment: Fragment(R.layout.search_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            val retrofit = Retrofit.
-                Builder()
-                .addConverterFactory (
-                 GsonConverterFactory
-                .create()
+            val retrofit = Retrofit.Builder()
+                .addConverterFactory(
+                    GsonConverterFactory
+                        .create()
                 )
                 .baseUrl(baseUrl)
                 .build()
             val retrofitService: CountriesService = retrofit
-                    .create(CountriesService::class.java)
+                .create(CountriesService::class.java)
 
             searchButton.setOnClickListener {
 
@@ -44,30 +43,31 @@ class SearchFragment: Fragment(R.layout.search_fragment) {
 
                 CoroutineScope(Dispatchers.IO)
                     .launch {
-                    val country = retrofitService
-                        .getCountryByName(countryName)
-                        .first()
+                        val country = retrofitService
+                            .getCountryByName(countryName)
+                            .first()
 
-                    val jsonString = Gson()
-                        .toJson(country)
+                        val jsonString = Gson()
+                            .toJson(country)
 
-                    withContext(Dispatchers.Main) {
-                        setFragmentResult(
-                            EXTRA_COUNTRY_REQUESTED_KEY,
-                            bundleOf(COUNTRY_BUNDLE_KEY to jsonString)
-                        )
+                        withContext(Dispatchers.Main) {
+                            setFragmentResult(
+                                EXTRA_COUNTRY_REQUESTED_KEY,
+                                bundleOf(COUNTRY_BUNDLE_KEY to jsonString)
+                            )
+                        }
+
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(
+                                R.id.FragmentContainerView,
+                                DetailsFragment()
+                            )
+                            .commit()
                     }
-
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(
-                        R.id.FragmentContainerView,
-                        DetailsFragment()
-                    )
-                        .commit()
-                }
             }
         }
     }
+
     companion object {
         private const val EXTRA_COUNTRY_REQUESTED_KEY = "EXTRA_COUNTRY_REQUESTED_KEY"
         private const val COUNTRY_BUNDLE_KEY = "COUNTRY_BUNDLE_KEY"
