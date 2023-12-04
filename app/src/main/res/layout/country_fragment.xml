@@ -15,19 +15,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/flag"
         app:layout_constraintTop_toTopOf="@+id/flag">
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
     </LinearLayout>
 
-        <ImageView
-            android:id="@+id/flag"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintEnd_toEndOf="@+id/linear_layout"
-            app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+        android:id="@+id/flag"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/linear_layout"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

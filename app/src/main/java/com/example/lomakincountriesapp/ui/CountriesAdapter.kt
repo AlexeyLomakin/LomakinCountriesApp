@@ -3,22 +3,20 @@ package com.example.lomakincountriesapp.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.data.Country
+import com.example.lomakincountriesapp.databinding.CountryFragmentBinding
 
 class CountriesAdapter(
     private val countriesList: List<Country>,
 ) : RecyclerView.Adapter<CountriesAdapter.CountriesViewHolder>() {
 
     class CountriesViewHolder(view: View) : ViewHolder(view) {
-
-        val textView: TextView = view.findViewById(R.id.text_view)
-        val flag: ImageView = view.findViewById(R.id.flag)
+        val bindings by viewBinding(CountryFragmentBinding::bind)
     }
 
     override fun onCreateViewHolder(
@@ -36,11 +34,11 @@ class CountriesAdapter(
 
     override fun onBindViewHolder(viewHolder: CountriesViewHolder, position: Int) {
 
-        viewHolder.textView.text = countriesList[position].name?.common
+        viewHolder.bindings.textView.text = countriesList[position].name?.common
 
         Glide.with(viewHolder.itemView.context).load(
             countriesList[position].flags?.png
-        ).into(viewHolder.flag)
+        ).into(viewHolder.bindings.flag)
 
     }
 }
