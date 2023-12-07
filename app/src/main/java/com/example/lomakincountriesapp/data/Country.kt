@@ -5,6 +5,6 @@ data class Country(
     var capital: ArrayList<String>,
     var languages: Map<String?, String?>,
     var area: Double,
-    var population: Int,
+    var population: Long,
     var flags: Flags?,
 )

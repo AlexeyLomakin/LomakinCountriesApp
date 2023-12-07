@@ -1,36 +1,41 @@
 package com.example.lomakincountriesapp.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import com.example.lomakincountriesapp.R
+import com.example.lomakincountriesapp.data.Country
+import com.example.lomakincountriesapp.databinding.CountryFragmentBinding
 
-class CountriesAdapter(context: Context,  private val items: List<String?>): ArrayAdapter<String?>(context, R.layout.country_fragment, items) {
+class CountriesAdapter(
+    private val countriesList: List<Country>,
+) : RecyclerView.Adapter<CountriesAdapter.CountriesViewHolder>() {
 
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-
-        val  convertView = LayoutInflater
-            .from(context).
-            inflate(R.layout.country_fragment,
-                parent,
-                false)
-
-        val textView = convertView.findViewById<TextView>(R.id.country_name)
-        val imageView = convertView.findViewById<ImageView>(R.id.flag)
-        textView.text = items[position]
-
-        if (position % 2 == 0)
-            imageView.setImageResource(R.drawable.flag)
-        else
-            imageView.setImageResource(R.drawable.pirate_flag)
-
-
-
-        return convertView
+    class CountriesViewHolder(view: View) : ViewHolder(view) {
+        private val bindings by viewBinding(CountryFragmentBinding::bind)
+        fun bind(country: Country) {
+            bindings.countryName.text = country.name?.common
+            Glide.with(itemView.context).load(country.flags?.png).into(bindings.flag)
+        }
     }
+
+    override fun onCreateViewHolder(
+        viewGroup: ViewGroup, viewType: Int
+    ): CountriesViewHolder {
+
+        val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
+            R.layout.country_fragment, viewGroup, false
+        )
+
+        return CountriesViewHolder(view)
+    }
+
+    override fun getItemCount(): Int = countriesList.size
+
+    override fun onBindViewHolder(viewHolder: CountriesViewHolder, position: Int) =
+        viewHolder.bind(countriesList[position])
 }
