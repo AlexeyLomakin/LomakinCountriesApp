@@ -18,7 +18,7 @@ class CountriesAdapter(
     class CountriesViewHolder(view: View) : ViewHolder(view) {
         private val bindings by viewBinding(CountryFragmentBinding::bind)
         fun bind(country: Country) {
-            bindings.textView.text = country.name?.common
+            bindings.countryName.text = country.name?.common
             Glide.with(itemView.context).load(country.flags?.png).into(bindings.flag)
         }
     }
