@@ -27,43 +27,29 @@ class SearchFragment : Fragment(R.layout.search_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            val retrofit = Retrofit.Builder()
-                .addConverterFactory(
-                    GsonConverterFactory
-                        .create()
-                )
-                .baseUrl(baseUrl)
-                .build()
-            val retrofitService: CountriesService = retrofit
-                .create(CountriesService::class.java)
+            val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(baseUrl).build()
+            val retrofitService: CountriesService = retrofit.create(CountriesService::class.java)
 
             searchButton.setOnClickListener {
 
                 val countryName = binding.countryTextSearch.text.toString()
 
-                CoroutineScope(Dispatchers.IO)
-                    .launch {
-                        val country = retrofitService
-                            .getCountryByName(countryName)
-                            .first()
+                CoroutineScope(Dispatchers.IO).launch {
+                    val country = retrofitService.getCountryByName(countryName).first()
 
-                        val jsonString = Gson()
-                            .toJson(country)
+                    val jsonString = Gson().toJson(country)
 
-                        withContext(Dispatchers.Main) {
-                            setFragmentResult(
-                                EXTRA_COUNTRY_REQUESTED_KEY,
-                                bundleOf(COUNTRY_BUNDLE_KEY to jsonString)
-                            )
-                        }
-
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(
-                                R.id.FragmentContainerView,
-                                DetailsFragment()
-                            )
-                            .commit()
+                    withContext(Dispatchers.Main) {
+                        setFragmentResult(
+                            EXTRA_COUNTRY_REQUESTED_KEY,
+                            bundleOf(COUNTRY_BUNDLE_KEY to jsonString)
+                        )
                     }
+
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.FragmentContainerView, DetailsFragment()).commit()
+                }
             }
         }
     }

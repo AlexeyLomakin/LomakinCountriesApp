@@ -23,16 +23,9 @@ class CountriesListFragment : Fragment(R.layout.countries_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val retrofit = Retrofit
-            .Builder()
-            .addConverterFactory(
-                GsonConverterFactory
-                    .create()
-            )
-            .baseUrl(baseUrl)
-            .build()
-
-        val manager = LinearLayoutManager(requireContext())
+        val retrofit =
+            Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(baseUrl)
+                .build()
 
         val retrofitService: CountriesService = retrofit
             .create(CountriesService::class.java)
@@ -48,7 +41,7 @@ class CountriesListFragment : Fragment(R.layout.countries_list_fragment) {
                     countriesList
                 )
 
-                binding.countriesList.layoutManager = manager
+                binding.countriesList.layoutManager = LinearLayoutManager(requireContext())
                 binding.countriesList.adapter = adapter
             }
         }

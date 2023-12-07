@@ -10,6 +10,7 @@ interface CountriesService {
     suspend fun getCountryByName(
         @Path("name") name: String
     ): List<Country>
+
     @GET("all")
-    suspend fun getAllCountries():List<Country>
+    suspend fun getAllCountries(): List<Country>
 }
