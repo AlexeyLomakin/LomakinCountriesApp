@@ -4,28 +4,29 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <LinearLayout
-        android:id="@+id/linear_layout"
+        android:id="@+id/country_name_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="@+id/flag">
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        <TextView
+            android:id="@+id/country_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
     </LinearLayout>
 
-        <ImageView
-            android:id="@+id/flag"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintStart_toEndOf="@+id/linear_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="end"/>
+    <ImageView
+        android:id="@+id/flag"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@+id/country_name_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="end"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@ class CountriesAdapter(context: Context,  private val items: List<String?>): Arr
                 parent,
                 false)
 
-        val textView = convertView.findViewById<TextView>(R.id.text_view)
+        val textView = convertView.findViewById<TextView>(R.id.country_name)
         val imageView = convertView.findViewById<ImageView>(R.id.flag)
         textView.text = items[position]
 
