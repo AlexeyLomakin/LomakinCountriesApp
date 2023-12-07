@@ -18,50 +18,29 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
 
-            requireActivity()
-                .supportFragmentManager
-                .setFragmentResultListener(
-                    EXTRA_COUNTRY_REQUESTED_KEY,
-                    this@DetailsFragment
-                ) { _, bundle ->
-                    val countryStr = bundle
-                        .getString(COUNTRY_BUNDLE_KEY)
+            requireActivity().supportFragmentManager.setFragmentResultListener(
+                EXTRA_COUNTRY_REQUESTED_KEY, this@DetailsFragment
+            ) { _, bundle ->
+                val countryStr = bundle.getString(COUNTRY_BUNDLE_KEY)
 
-                    val country = Gson().fromJson(
-                        countryStr,
-                        Country::class.java
-                    )
+                val country = Gson().fromJson(
+                    countryStr, Country::class.java
+                )
 
-                    capitalTextInfo.text = country
-                        .capital
-                        .first()
+                capitalTextInfo.text = country.capital.first()
 
-                    areaTextInfo.text = country
-                        .area
-                        .toLong()
-                        .toString()
+                areaTextInfo.text = country.area.toString()
 
-                    populationTextInfo.text = country
-                        .population
-                        .toLong()
-                        .toString()
+                populationTextInfo.text = country.population.toString()
 
-                    countryName.text = country
-                        .name
-                        ?.official
-                        .toString()
+                countryName.text = country.name?.official.toString()
 
-                    languagesTextInfo.text = country
-                        .languages
-                        .values
-                        .joinToString(",")
+                languagesTextInfo.text = country.languages.values.joinToString(",")
 
-                    activity?.let {
-                        Glide.with(it)
-                            .load(country.flags?.png)
-                            .into(flag)
-                    }
+                activity?.let {
+                    Glide.with(it).load(country.flags?.png).into(flag)
                 }
+            }
         }
     }
 
