@@ -24,25 +24,24 @@ class CountriesListFragment : Fragment(R.layout.countries_list_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val retrofit =
-            Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(baseUrl)
+            Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(baseUrl)
                 .build()
 
         val retrofitService: CountriesService = retrofit
             .create(CountriesService::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
+
             val countriesList = retrofitService
                 .getAllCountries()
                 .sortedBy { it.name?.common }
 
             withContext(Dispatchers.Main) {
 
-                val adapter = CountriesAdapter(
-                    countriesList
-                )
-
                 binding.countriesList.layoutManager = LinearLayoutManager(requireContext())
-                binding.countriesList.adapter = adapter
+                binding.countriesList.adapter = CountriesAdapter(countriesList)
+
             }
         }
     }

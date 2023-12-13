@@ -15,6 +15,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
 
+            pagination.setOnClickListener {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.FragmentContainerView, PaginationFragment()).commit()
+            }
+
             countriesListButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, CountriesListFragment()).commit()
