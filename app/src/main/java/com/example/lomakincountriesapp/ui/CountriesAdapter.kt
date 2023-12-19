@@ -39,7 +39,7 @@ class CountriesAdapter(
         viewGroup: ViewGroup, viewType: Int
     ): ViewHolder {
 
-        return if (viewType == 0) {
+        return if (viewType == PIRATE_FLAG) {
             val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
                 R.layout.pirate_flag_fragment, viewGroup, false
             )
@@ -55,7 +55,7 @@ class CountriesAdapter(
     override fun getItemCount(): Int = countriesList.size
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        return if (getItemViewType(position) == 0) {
+        return if (getItemViewType(position) == PIRATE_FLAG) {
             (viewHolder as PirateViewHolder).bind(countriesList[position])
         } else {
             (viewHolder as WhiteFlagHolder).bind(countriesList[position])
