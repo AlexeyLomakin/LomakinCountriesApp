@@ -18,14 +18,16 @@ class CountriesAdapter(
     override fun getItemViewType(position: Int): Int {
         return if (position % 2 == 0) PIRATE_FLAG else WHITE_FLAG
     }
-    class PirateViewHolder(view: View): ViewHolder(view){
+
+    class PirateViewHolder(view: View) : ViewHolder(view) {
         private val bindings by viewBinding(PirateFlagFragmentBinding::bind)
         fun bind(country: Country) {
             bindings.countryName.text = country.name?.common
             bindings.flag.setImageResource(R.drawable.pirate_flag)
         }
     }
-    class WhiteFlagHolder(view: View): ViewHolder(view) {
+
+    class WhiteFlagHolder(view: View) : ViewHolder(view) {
         private val bindings by viewBinding(WhiteFlagFragmentBinding::bind)
         fun bind(country: Country) {
             bindings.countryName.text = country.name?.common
@@ -37,17 +39,16 @@ class CountriesAdapter(
         viewGroup: ViewGroup, viewType: Int
     ): ViewHolder {
 
-        return if(viewType == 0){
+        return if (viewType == 0) {
             val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
                 R.layout.pirate_flag_fragment, viewGroup, false
             )
-             PirateViewHolder(view)
-        }
-        else {
+            PirateViewHolder(view)
+        } else {
             val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
                 R.layout.white_flag_fragment, viewGroup, false
             )
-             WhiteFlagHolder(view)
+            WhiteFlagHolder(view)
         }
     }
 
@@ -56,8 +57,7 @@ class CountriesAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         return if (getItemViewType(position) == 0) {
             (viewHolder as PirateViewHolder).bind(countriesList[position])
-        }
-        else {
+        } else {
             (viewHolder as WhiteFlagHolder).bind(countriesList[position])
         }
     }
