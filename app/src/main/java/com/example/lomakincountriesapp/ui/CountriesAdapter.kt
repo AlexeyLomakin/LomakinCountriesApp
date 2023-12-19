@@ -41,13 +41,13 @@ class CountriesAdapter(
             val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
                 R.layout.pirate_flag_fragment, viewGroup, false
             )
-            return PirateViewHolder(view)
+             PirateViewHolder(view)
         }
-        else{
+        else {
             val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
                 R.layout.white_flag_fragment, viewGroup, false
             )
-            return WhiteFlagHolder(view)
+             WhiteFlagHolder(view)
         }
     }
 
