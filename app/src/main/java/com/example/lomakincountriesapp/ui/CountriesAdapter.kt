@@ -6,36 +6,64 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bumptech.glide.Glide
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.data.Country
-import com.example.lomakincountriesapp.databinding.CountryFragmentBinding
+import com.example.lomakincountriesapp.databinding.PirateFlagFragmentBinding
+import com.example.lomakincountriesapp.databinding.WhiteFlagFragmentBinding
 
 class CountriesAdapter(
     private val countriesList: List<Country>,
-) : RecyclerView.Adapter<CountriesAdapter.CountriesViewHolder>() {
+) : RecyclerView.Adapter<ViewHolder>() {
 
-    class CountriesViewHolder(view: View) : ViewHolder(view) {
-        private val bindings by viewBinding(CountryFragmentBinding::bind)
+    override fun getItemViewType(position: Int): Int {
+        return if (position % 2 == 0) PIRATE_FLAG else WHITE_FLAG
+    }
+    class PirateViewHolder(view: View): ViewHolder(view){
+        private val bindings by viewBinding(PirateFlagFragmentBinding::bind)
         fun bind(country: Country) {
             bindings.countryName.text = country.name?.common
-            Glide.with(itemView.context).load(country.flags?.png).into(bindings.flag)
+            bindings.flag.setImageResource(R.drawable.pirate_flag)
+        }
+    }
+    class WhiteFlagHolder(view: View): ViewHolder(view) {
+        private val bindings by viewBinding(WhiteFlagFragmentBinding::bind)
+        fun bind(country: Country) {
+            bindings.countryName.text = country.name?.common
+            bindings.flag.setImageResource(R.drawable.flag)
         }
     }
 
     override fun onCreateViewHolder(
         viewGroup: ViewGroup, viewType: Int
-    ): CountriesViewHolder {
+    ): ViewHolder {
 
-        val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
-            R.layout.country_fragment, viewGroup, false
-        )
-
-        return CountriesViewHolder(view)
+        return if(viewType == 0){
+            val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
+                R.layout.pirate_flag_fragment, viewGroup, false
+            )
+            return PirateViewHolder(view)
+        }
+        else{
+            val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
+                R.layout.white_flag_fragment, viewGroup, false
+            )
+            return WhiteFlagHolder(view)
+        }
     }
 
     override fun getItemCount(): Int = countriesList.size
 
-    override fun onBindViewHolder(viewHolder: CountriesViewHolder, position: Int) =
-        viewHolder.bind(countriesList[position])
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        return if (getItemViewType(position) == 0) {
+            (viewHolder as PirateViewHolder).bind(countriesList[position])
+        }
+        else {
+            (viewHolder as WhiteFlagHolder).bind(countriesList[position])
+        }
+    }
+
+    companion object {
+        const val PIRATE_FLAG = 0
+        const val WHITE_FLAG = 1
+    }
 }
