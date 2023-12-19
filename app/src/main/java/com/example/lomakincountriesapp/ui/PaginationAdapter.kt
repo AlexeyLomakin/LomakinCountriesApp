@@ -50,7 +50,7 @@ class PaginationAdapter(
                 oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: Arts, newItem: Arts): Boolean {
-                TODO("Not yet implemented")
+                return oldItem == newItem
             }
 
         }
