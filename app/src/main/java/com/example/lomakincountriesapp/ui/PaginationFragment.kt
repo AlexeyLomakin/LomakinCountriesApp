@@ -9,6 +9,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.databinding.PaginationListFragmentBinding
 import com.example.lomakincountriesapp.network.PaginationService
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,9 +41,11 @@ class PaginationFragment : Fragment(R.layout.pagination_list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         binding.paginationList.adapter = adapter
         binding.paginationList.layoutManager = LinearLayoutManager(requireContext())
         binding.paginationList.addOnScrollListener(PagesScrollListener(requireContext()))
+        binding.paginationList.addItemDecoration(divider)
         loadContent(page = 1)
     }
 
