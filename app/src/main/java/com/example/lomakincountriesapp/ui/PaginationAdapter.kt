@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.data.Arts
 import com.example.lomakincountriesapp.databinding.PageFragmentBinding
@@ -16,10 +17,14 @@ class PaginationAdapter(
 ) : ListAdapter<Arts, PaginationAdapter.PaginationViewHolder>(diffUtil) {
 
     class PaginationViewHolder(view: View) : ViewHolder(view) {
+        private val firstUrl = "https://www.artic.edu/iiif/2/"
+        private val lastUrl = "/full/843,/0/default.jpg"
         private val bindings by viewBinding(PageFragmentBinding::bind)
         fun bind(page: Arts) {
             bindings.titleText.text = page.title
             bindings.artistText.text = page.artist_display
+            Glide.with(itemView.context).load(firstUrl + page.image_id + lastUrl)
+                .into(bindings.artImg)
         }
     }
 

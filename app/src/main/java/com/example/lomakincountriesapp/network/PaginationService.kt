@@ -8,7 +8,7 @@ interface PaginationService {
 
     @GET("artworks/")
     suspend fun getPageById(
-        @Query("page={current_page}&limit=50") currentPage: Int?
+        @Query("page={current_page}&limit=100") currentPage: Int?
     ): Page
 
     @GET("artworks")
