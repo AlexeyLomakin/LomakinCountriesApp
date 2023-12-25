@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.databinding.ArtsListFragmentBinding
-import com.example.lomakincountriesapp.network.PaginationService
+import com.example.lomakincountriesapp.network.ArtsService
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,8 +26,8 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
             .build()
-    private val retrofitService: PaginationService = retrofit
-        .create(PaginationService::class.java)
+    private val retrofitService: ArtsService = retrofit
+        .create(ArtsService::class.java)
     private var currentPage = 1
 
     inner class PagesScrollListener(context: Context) : ArtScrollListener(
