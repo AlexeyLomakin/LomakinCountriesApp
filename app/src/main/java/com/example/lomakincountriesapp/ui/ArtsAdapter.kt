@@ -12,9 +12,7 @@ import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.data.Arts
 import com.example.lomakincountriesapp.databinding.ArtFragmentBinding
 
-class ArtsAdapter(
-    private var artsList: MutableList<Arts> = mutableListOf(),
-) : ListAdapter<Arts, ArtsAdapter.PaginationViewHolder>(diffUtil) {
+class ArtsAdapter() : ListAdapter<Arts, ArtsAdapter.PaginationViewHolder>(diffUtil) {
 
     class PaginationViewHolder(view: View) : ViewHolder(view) {
         private val firstPartOfUrl = "https://www.artic.edu/iiif/2/"
@@ -28,8 +26,7 @@ class ArtsAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            PaginationViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaginationViewHolder {
         val view = LayoutInflater.from(parent.context.applicationContext).inflate(
             R.layout.art_fragment, parent, false
         )
@@ -37,16 +34,8 @@ class ArtsAdapter(
         return PaginationViewHolder(view)
     }
 
-    override fun getItemCount(): Int = artsList.size
-
     override fun onBindViewHolder(holder: PaginationViewHolder, position: Int) =
-        holder.bind(artsList[position])
-//        holder.bind(getItem(position))
-
-    fun setData(newData: MutableList<Arts>) {
-        artsList.addAll(newData)
-        notifyItemInserted(artsList.size - 1)
-    }
+        holder.bind(getItem(position))
 
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<Arts>() {

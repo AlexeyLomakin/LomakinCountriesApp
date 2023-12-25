@@ -23,11 +23,9 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
     private val baseUrl = "https://api.artic.edu/api/v1/"
     private var adapter = ArtsAdapter()
     private val retrofit =
-        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(baseUrl)
+        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(baseUrl)
             .build()
-    private val retrofitService: ArtsService = retrofit
-        .create(ArtsService::class.java)
+    private val retrofitService: ArtsService = retrofit.create(ArtsService::class.java)
     private var currentPage = 1
 
     inner class PagesScrollListener(context: Context) : ArtScrollListener(
@@ -52,8 +50,7 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
         CoroutineScope(Dispatchers.IO).launch {
             val arts = retrofitService.getArtByPage(page)
             withContext(Dispatchers.Main) {
-                adapter.setData(arts.data)
-//                adapter.submitList(arts.data)
+                adapter.submitList(adapter.currentList + arts.data)
             }
         }
     }
