@@ -6,11 +6,8 @@ import retrofit2.http.Query
 
 interface PaginationService {
 
-    @GET("artworks/")
-    suspend fun getPageById(
-        @Query("page={current_page}&limit=100") currentPage: Int?
-    ): Page
-
     @GET("artworks")
-    suspend fun getAllPages(): Page
+    suspend fun getPageById(
+        @Query("page") currentPage: Int?
+    ): Page
 }

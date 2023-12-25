@@ -17,13 +17,13 @@ class PaginationAdapter(
 ) : ListAdapter<Arts, PaginationAdapter.PaginationViewHolder>(diffUtil) {
 
     class PaginationViewHolder(view: View) : ViewHolder(view) {
-        private val firstUrl = "https://www.artic.edu/iiif/2/"
-        private val lastUrl = "/full/843,/0/default.jpg"
+        private val firstPartOfUrl = "https://www.artic.edu/iiif/2/"
+        private val lastPartOfUrl = "/full/843,/0/default.jpg"
         private val bindings by viewBinding(PageFragmentBinding::bind)
         fun bind(page: Arts) {
             bindings.titleText.text = page.title
             bindings.artistText.text = page.artist_display
-            Glide.with(itemView.context).load(firstUrl + page.image_id + lastUrl)
+            Glide.with(itemView.context).load(firstPartOfUrl + page.image_id + lastPartOfUrl)
                 .into(bindings.artImg)
         }
     }
@@ -42,7 +42,7 @@ class PaginationAdapter(
     override fun onBindViewHolder(holder: PaginationViewHolder, position: Int) =
         holder.bind(pagesList[position])
 
-    fun setData(newData: List<Arts>) {
+    fun setData(newData: MutableList<Arts>) {
         newData.forEach {
             pagesList.add(it)
             notifyItemInserted(pagesList.size - 1)

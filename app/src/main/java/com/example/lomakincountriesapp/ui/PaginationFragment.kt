@@ -28,7 +28,6 @@ class PaginationFragment : Fragment(R.layout.pagination_list_fragment) {
             .build()
     private val retrofitService: PaginationService = retrofit
         .create(PaginationService::class.java)
-
     private var currentPage = 1
 
     inner class PagesScrollListener(context: Context) : PaginationScrollListener(
@@ -41,19 +40,19 @@ class PaginationFragment : Fragment(R.layout.pagination_list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadContent(1)
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         binding.paginationList.adapter = adapter
         binding.paginationList.layoutManager = LinearLayoutManager(requireContext())
         binding.paginationList.addOnScrollListener(PagesScrollListener(requireContext()))
         binding.paginationList.addItemDecoration(divider)
-        loadContent(page = 1)
     }
 
     private fun loadContent(page: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val data = retrofitService.getPageById(page).data
+            val arts = retrofitService.getPageById(page)
             withContext(Dispatchers.Main) {
-                adapter.setData(data)
+                adapter.setData(arts.data)
             }
         }
     }

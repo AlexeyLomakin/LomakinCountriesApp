@@ -8,7 +8,7 @@ abstract class PaginationScrollListener(private val layoutManager: LinearLayoutM
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
-        if (!recyclerView.canScrollVertically(newState)){
+        if (recyclerView.canScrollVertically(newState)){
             loadMoreItems()
         }
     }
