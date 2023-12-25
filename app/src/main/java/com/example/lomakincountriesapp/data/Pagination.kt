@@ -1,6 +1,6 @@
 package com.example.lomakincountriesapp.data
 
 data class Pagination(
-    var current_page: Int?,
-    var total: Int
+    val current_page: Int?,
+    val total: Int
 )

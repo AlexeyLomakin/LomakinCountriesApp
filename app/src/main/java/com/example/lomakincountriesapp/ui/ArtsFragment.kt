@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.lomakincountriesapp.R
-import com.example.lomakincountriesapp.databinding.PaginationListFragmentBinding
+import com.example.lomakincountriesapp.databinding.ArtsListFragmentBinding
 import com.example.lomakincountriesapp.network.PaginationService
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import kotlinx.coroutines.CoroutineScope
@@ -17,11 +17,11 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class PaginationFragment : Fragment(R.layout.pagination_list_fragment) {
+class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
 
-    private val binding by viewBinding(PaginationListFragmentBinding::bind)
+    private val binding by viewBinding(ArtsListFragmentBinding::bind)
     private val baseUrl = "https://api.artic.edu/api/v1/"
-    private var adapter = PaginationAdapter()
+    private var adapter = ArtsAdapter()
     private val retrofit =
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
@@ -30,7 +30,7 @@ class PaginationFragment : Fragment(R.layout.pagination_list_fragment) {
         .create(PaginationService::class.java)
     private var currentPage = 1
 
-    inner class PagesScrollListener(context: Context) : PaginationScrollListener(
+    inner class PagesScrollListener(context: Context) : ArtScrollListener(
         LinearLayoutManager(context)
     ) {
         override fun loadMoreItems() {
@@ -42,17 +42,18 @@ class PaginationFragment : Fragment(R.layout.pagination_list_fragment) {
         super.onViewCreated(view, savedInstanceState)
         loadContent(1)
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-        binding.paginationList.adapter = adapter
-        binding.paginationList.layoutManager = LinearLayoutManager(requireContext())
-        binding.paginationList.addOnScrollListener(PagesScrollListener(requireContext()))
-        binding.paginationList.addItemDecoration(divider)
+        binding.artList.adapter = adapter
+        binding.artList.layoutManager = LinearLayoutManager(requireContext())
+        binding.artList.addOnScrollListener(PagesScrollListener(requireContext()))
+        binding.artList.addItemDecoration(divider)
     }
 
     private fun loadContent(page: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val arts = retrofitService.getPageById(page)
+            val arts = retrofitService.getArtByPage(page)
             withContext(Dispatchers.Main) {
                 adapter.setData(arts.data)
+//                adapter.submitList(arts.data)
             }
         }
     }

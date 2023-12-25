@@ -3,7 +3,7 @@ package com.example.lomakincountriesapp.ui
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class PaginationScrollListener(private val layoutManager: LinearLayoutManager) :
+abstract class ArtScrollListener(private val layoutManager: LinearLayoutManager) :
     RecyclerView.OnScrollListener() {
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

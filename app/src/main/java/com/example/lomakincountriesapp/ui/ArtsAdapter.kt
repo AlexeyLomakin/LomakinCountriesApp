@@ -10,20 +10,20 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.data.Arts
-import com.example.lomakincountriesapp.databinding.PageFragmentBinding
+import com.example.lomakincountriesapp.databinding.ArtFragmentBinding
 
-class PaginationAdapter(
-    private var pagesList: MutableList<Arts> = mutableListOf(),
-) : ListAdapter<Arts, PaginationAdapter.PaginationViewHolder>(diffUtil) {
+class ArtsAdapter(
+    private var artsList: MutableList<Arts> = mutableListOf(),
+) : ListAdapter<Arts, ArtsAdapter.PaginationViewHolder>(diffUtil) {
 
     class PaginationViewHolder(view: View) : ViewHolder(view) {
         private val firstPartOfUrl = "https://www.artic.edu/iiif/2/"
         private val lastPartOfUrl = "/full/843,/0/default.jpg"
-        private val bindings by viewBinding(PageFragmentBinding::bind)
-        fun bind(page: Arts) {
-            bindings.titleText.text = page.title
-            bindings.artistText.text = page.artist_display
-            Glide.with(itemView.context).load(firstPartOfUrl + page.image_id + lastPartOfUrl)
+        private val bindings by viewBinding(ArtFragmentBinding::bind)
+        fun bind(art: Arts) {
+            bindings.titleText.text = art.title
+            bindings.artistText.text = art.artist_display
+            Glide.with(itemView.context).load(firstPartOfUrl + art.image_id + lastPartOfUrl)
                 .into(bindings.artImg)
         }
     }
@@ -31,22 +31,21 @@ class PaginationAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             PaginationViewHolder {
         val view = LayoutInflater.from(parent.context.applicationContext).inflate(
-            R.layout.page_fragment, parent, false
+            R.layout.art_fragment, parent, false
         )
 
         return PaginationViewHolder(view)
     }
 
-    override fun getItemCount(): Int = pagesList.size
+    override fun getItemCount(): Int = artsList.size
 
     override fun onBindViewHolder(holder: PaginationViewHolder, position: Int) =
-        holder.bind(pagesList[position])
+        holder.bind(artsList[position])
+//        holder.bind(getItem(position))
 
     fun setData(newData: MutableList<Arts>) {
-        newData.forEach {
-            pagesList.add(it)
-            notifyItemInserted(pagesList.size - 1)
-        }
+        artsList.addAll(newData)
+        notifyItemInserted(artsList.size - 1)
     }
 
     companion object {
