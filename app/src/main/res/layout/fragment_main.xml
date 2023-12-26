@@ -7,11 +7,11 @@
     android:layout_marginStart="12dp">
 
     <Button
-        android:id="@+id/pagination"
+        android:id="@+id/arts_list_button"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pagination_button"
+        android:text="@string/arts_list_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:text="@string/countries_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pagination"/>
+        app:layout_constraintTop_toBottomOf="@+id/arts_list_button"/>
 
     <Button
         android:id="@+id/search_button"

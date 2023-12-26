@@ -12,9 +12,9 @@ import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.data.Arts
 import com.example.lomakincountriesapp.databinding.ArtFragmentBinding
 
-class ArtsAdapter() : ListAdapter<Arts, ArtsAdapter.PaginationViewHolder>(diffUtil) {
+class ArtsAdapter() : ListAdapter<Arts, ArtsAdapter.ArtsViewHolder>(diffUtil) {
 
-    class PaginationViewHolder(view: View) : ViewHolder(view) {
+    class ArtsViewHolder(view: View) : ViewHolder(view) {
         private val firstPartOfUrl = "https://www.artic.edu/iiif/2/"
         private val lastPartOfUrl = "/full/843,/0/default.jpg"
         private val bindings by viewBinding(ArtFragmentBinding::bind)
@@ -26,15 +26,15 @@ class ArtsAdapter() : ListAdapter<Arts, ArtsAdapter.PaginationViewHolder>(diffUt
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaginationViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtsViewHolder {
         val view = LayoutInflater.from(parent.context.applicationContext).inflate(
             R.layout.art_fragment, parent, false
         )
 
-        return PaginationViewHolder(view)
+        return ArtsViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: PaginationViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: ArtsViewHolder, position: Int) =
         holder.bind(getItem(position))
 
     companion object {
