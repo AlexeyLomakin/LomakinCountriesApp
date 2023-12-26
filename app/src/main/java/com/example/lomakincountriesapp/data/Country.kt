@@ -1,10 +1,10 @@
 package com.example.lomakincountriesapp.data
 
 data class Country(
-    var name: Name?,
-    var capital: ArrayList<String>,
-    var languages: Map<String?, String?>,
-    var area: Double,
-    var population: Long,
-    var flags: Flags?,
+    val name: Name?,
+    val capital: ArrayList<String>,
+    val languages: Map<String?, String?>,
+    val area: Double,
+    val population: Long,
+    val flags: Flags?,
 )
