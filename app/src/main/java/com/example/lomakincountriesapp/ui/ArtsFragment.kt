@@ -1,6 +1,5 @@
 package com.example.lomakincountriesapp.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -28,8 +27,7 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
     private val retrofitService: ArtsService = retrofit.create(ArtsService::class.java)
     private var currentPage = 1
 
-    inner class PagesScrollListener(context: Context) : ArtScrollListener(
-        LinearLayoutManager(context)
+    inner class PagesScrollListener : ArtScrollListener(
     ) {
         override fun loadMoreItems() {
             loadContent(++currentPage)
@@ -42,7 +40,7 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         binding.artList.adapter = adapter
         binding.artList.layoutManager = LinearLayoutManager(requireContext())
-        binding.artList.addOnScrollListener(PagesScrollListener(requireContext()))
+        binding.artList.addOnScrollListener(PagesScrollListener())
         binding.artList.addItemDecoration(divider)
     }
 

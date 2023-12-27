@@ -15,7 +15,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
 
-            pagination.setOnClickListener {
+            artsListButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, ArtsFragment()).commit()
             }
