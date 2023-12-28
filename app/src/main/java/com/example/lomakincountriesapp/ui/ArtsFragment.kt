@@ -28,24 +28,26 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
         ViewModelProvider(this, ArtsViewModelFactory())[ArtsViewModel::class.java]
     }
 
-    inner class ArtsScrollListener: ArtScrollListener(){
+    inner class ArtsScrollListener : ArtScrollListener() {
         override fun loadMoreItems() {
             viewModel.loadMoreItems()
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity().application as ArtsApp).appComponent.inject(this)
 
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-
+        binding.artList.layoutManager = LinearLayoutManager(requireContext())
         binding.artList.addItemDecoration(divider)
         binding.artList.adapter = adapter
+
         viewModel.artsData.observe(viewLifecycleOwner) { arts ->
             adapter.submitList(arts)
         }
-        binding.artList.layoutManager = LinearLayoutManager(requireContext())
+
         binding.artList.addOnScrollListener(ArtsScrollListener())
         viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             errorMessage?.let {
