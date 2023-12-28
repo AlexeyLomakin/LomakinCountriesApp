@@ -13,7 +13,6 @@ import com.example.lomakincountriesapp.ui.viewmodels.ArtsApp
 import com.example.lomakincountriesapp.ui.viewmodels.ArtsViewModel
 import com.example.lomakincountriesapp.ui.viewmodels.ArtsViewModelFactory
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
@@ -36,23 +35,17 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
 
         (requireActivity().application as ArtsApp).appComponent.inject(this)
 
-        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         binding.artList.layoutManager = LinearLayoutManager(requireContext())
         binding.artList.addItemDecoration(divider)
         binding.artList.adapter = adapter
+        binding.artList.addOnScrollListener(ArtsScrollListener())
 
         viewModel.artsData.observe(viewLifecycleOwner) { arts ->
             adapter.submitList(arts)
-        }
-
-        binding.artList.addOnScrollListener(ArtsScrollListener())
-        viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
-            }
         }
     }
 }
