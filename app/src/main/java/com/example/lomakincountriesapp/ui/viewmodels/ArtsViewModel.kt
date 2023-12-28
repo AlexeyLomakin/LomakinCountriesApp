@@ -15,23 +15,34 @@ class ArtsViewModel : ViewModel() {
     private val _artsData = MutableLiveData<List<Arts>>()
     val artsData: LiveData<List<Arts>> = _artsData
     private var currentPage = 1
+    private var isLoading = false
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> = _error
 
     init {
         loadContent(currentPage)
     }
 
-    private fun loadMoreItems() {
-        ++currentPage
-        loadContent(currentPage)
+     fun loadMoreItems() {
+        if (!isLoading) {
+            isLoading = true
+            ++currentPage
+            loadContent(currentPage)
+        }
     }
 
     private fun loadContent(page: Int) {
         viewModelScope.launch {
-            val arts = withContext(Dispatchers.IO) {
-                ArtsModule().provideArtsService().getArtByPage(page)
+            try {
+                val arts = withContext(Dispatchers.IO) {
+                    ArtsModule().provideArtsService().getArtByPage(page)
+                }
+                _artsData.value = _artsData.value.orEmpty() + arts.data
+            } catch (e: Exception) {
+                _error.value = "Ошибка загрузки данных"
+            } finally {
+                isLoading = false
             }
-            _artsData.value = arts.data
-            loadMoreItems()
         }
     }
 }
