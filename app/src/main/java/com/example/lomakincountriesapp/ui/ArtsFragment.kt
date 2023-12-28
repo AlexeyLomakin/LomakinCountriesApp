@@ -24,28 +24,31 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
     private var adapter = ArtsAdapter()
 
     private val viewModel by lazy {
-        ViewModelProvider(this, ArtsViewModelFactory(retrofitService))[ArtsViewModel::class.java]
+        ViewModelProvider(this, ArtsViewModelFactory())[ArtsViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().application as ArtsApp).appComponent.inject(this)
-        initRecyclerView()
-
+//        initRecyclerView()
+        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        binding.artList.addItemDecoration(divider)
+        binding.artList.adapter = adapter
+        binding.artList.layoutManager = LinearLayoutManager(requireContext())
         viewModel.artsData.observe(viewLifecycleOwner) { arts ->
             adapter.submitList(adapter.currentList + arts)
         }
     }
 
-    private fun initRecyclerView() {
-        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-        binding.artList.adapter = adapter
-        binding.artList.layoutManager = LinearLayoutManager(requireContext())
-        binding.artList.addOnScrollListener(object : ArtScrollListener() {
-            override fun loadMoreItems() {
-                viewModel.loadMoreItems()
-            }
-        })
-        binding.artList.addItemDecoration(divider)
-    }
+//    private fun initRecyclerView() {
+//        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+//        binding.artList.adapter = adapter
+//        binding.artList.layoutManager = LinearLayoutManager(requireContext())
+//        binding.artList.addOnScrollListener(object : ArtScrollListener() {
+//            override fun loadMoreItems() {
+//                viewModel.loadMoreItems()
+//            }
+//        })
+//        binding.artList.addItemDecoration(divider)
+//    }
 }

@@ -2,14 +2,13 @@ package com.example.lomakincountriesapp.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.lomakincountriesapp.network.ArtsService
 
-class ArtsViewModelFactory(private val artsService: ArtsService) : ViewModelProvider.Factory {
+class ArtsViewModelFactory : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ArtsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return ArtsViewModel(artsService) as T
+            return ArtsViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
