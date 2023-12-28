@@ -8,6 +8,7 @@ class ArtsViewModelFactory(private val artsService: ArtsService) : ViewModelProv
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ArtsViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
             return ArtsViewModel(artsService) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
