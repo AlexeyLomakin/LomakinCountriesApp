@@ -22,8 +22,8 @@ class ArtsViewModel : ViewModel() {
     }
 
     fun loadMoreItems() {
-            ++currentPage
-            loadContent(currentPage)
+        ++currentPage
+        loadContent(currentPage)
     }
 
     private fun loadContent(page: Int) {
@@ -31,7 +31,7 @@ class ArtsViewModel : ViewModel() {
             val arts = withContext(Dispatchers.IO) {
                 ArtsModule().provideArtsService().getArtByPage(page)
             }
-            _artsData.value = _artsData.value?.plus(arts.data)
+            _artsData.value = _artsData.value.orEmpty() + arts.data
         }
     }
 }
