@@ -20,7 +20,7 @@ class ArtsViewModel : ViewModel() {
         loadContent(currentPage)
     }
 
-    fun loadMoreItems() {
+    private fun loadMoreItems() {
         ++currentPage
         loadContent(currentPage)
     }
@@ -31,6 +31,7 @@ class ArtsViewModel : ViewModel() {
                 ArtsModule().provideArtsService().getArtByPage(page)
             }
             _artsData.value = arts.data
+            loadMoreItems()
         }
     }
 }
