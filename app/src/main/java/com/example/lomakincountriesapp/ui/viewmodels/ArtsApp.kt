@@ -4,11 +4,11 @@ import android.app.Application
 
 class ArtsApp : Application() {
 
-    lateinit var appComponent: ArtsComponent
+    private lateinit var artsComponent: ArtsComponent
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerArtsComponent
+        artsComponent = DaggerArtsComponent
             .builder()
             .artsModule(ArtsModule())
             .build()

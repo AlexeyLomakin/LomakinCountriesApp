@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lomakincountriesapp.data.Arts
+import com.example.lomakincountriesapp.network.ArtsService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
-class ArtsViewModel : ViewModel() {
+class ArtsViewModel @Inject constructor(private val artsService: ArtsService)
+    : ViewModel() {
 
     private val _artsData = MutableLiveData<List<Arts>>()
     val artsData: LiveData<List<Arts>> = _artsData
@@ -27,11 +29,10 @@ class ArtsViewModel : ViewModel() {
     }
 
     private fun loadContent(page: Int) {
-        viewModelScope.launch {
-            val arts = withContext(Dispatchers.IO) {
-                ArtsModule().provideArtsService().getArtByPage(page)
-            }
-            _artsData.value = _artsData.value.orEmpty() + arts.data
+        viewModelScope.launch(Dispatchers.Main) {
+                val arts =  artsService.getArtByPage(page)
+                _artsData.value = _artsData.value.orEmpty() + arts.data
+
         }
     }
 }
