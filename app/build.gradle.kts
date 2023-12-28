@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -70,4 +71,8 @@ dependencies {
 
     //RecyclerView
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
+
+    //Dagger
+    implementation ("com.google.dagger:dagger:2.50")
+    kapt ("com.google.dagger:dagger-compiler:2.50")
 }
