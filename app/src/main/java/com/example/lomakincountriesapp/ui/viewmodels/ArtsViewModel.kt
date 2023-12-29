@@ -11,8 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class ArtsViewModel @Inject constructor(private val artsService: ArtsService)
-    : ViewModel() {
+class ArtsViewModel @Inject constructor(private val artsService: ArtsService) : ViewModel() {
 
     private val _artsData = MutableLiveData<List<Arts>>()
     val artsData: LiveData<List<Arts>> = _artsData
@@ -30,8 +29,8 @@ class ArtsViewModel @Inject constructor(private val artsService: ArtsService)
 
     private fun loadContent(page: Int) {
         viewModelScope.launch(Dispatchers.Main) {
-                val arts =  artsService.getArtByPage(page)
-                _artsData.value = _artsData.value.orEmpty() + arts.data
+            val arts = artsService.getArtByPage(page)
+            _artsData.value = _artsData.value.orEmpty() + arts.data
 
         }
     }
