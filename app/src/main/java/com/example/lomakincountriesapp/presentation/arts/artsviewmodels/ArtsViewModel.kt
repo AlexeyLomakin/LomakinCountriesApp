@@ -8,6 +8,7 @@ import com.example.lomakincountriesapp.data.arts.Arts
 import com.example.lomakincountriesapp.network.ArtsService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -28,10 +29,11 @@ class ArtsViewModel @Inject constructor(private val artsService: ArtsService) : 
     }
 
     private fun loadContent(page: Int) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val arts = artsService.getArtByPage(page)
-            _artsData.value = _artsData.value.orEmpty() + arts.data
-
+            withContext(Dispatchers.Main){
+                _artsData.value = _artsData.value.orEmpty() + arts.data
+            }
         }
     }
 }

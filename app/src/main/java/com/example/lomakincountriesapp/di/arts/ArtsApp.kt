@@ -1,7 +1,6 @@
 package com.example.lomakincountriesapp.di.arts
 
 import android.app.Application
-import com.example.lomakincountriesapp.di.DaggerArtsComponent
 
 class ArtsApp : Application() {
 
