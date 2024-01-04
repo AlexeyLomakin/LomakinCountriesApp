@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.data
+package com.example.lomakincountriesapp.data.arts
 
 data class Arts(
     val id: Int?,

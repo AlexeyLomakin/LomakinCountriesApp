@@ -1,6 +1,6 @@
-package com.example.lomakincountriesapp.ui.viewmodels
+package com.example.lomakincountriesapp.di.arts
 
-import com.example.lomakincountriesapp.ui.ArtsFragment
+import com.example.lomakincountriesapp.presentation.arts.ArtsFragment
 import dagger.Component
 import javax.inject.Singleton
 

@@ -1,6 +1,7 @@
-package com.example.lomakincountriesapp.ui.viewmodels
+package com.example.lomakincountriesapp.di.arts
 
 import android.app.Application
+import com.example.lomakincountriesapp.di.DaggerArtsComponent
 
 class ArtsApp : Application() {
 
@@ -8,8 +9,7 @@ class ArtsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        artsComponent = DaggerArtsComponent
-            .builder()
+        artsComponent = DaggerArtsComponent.builder()
             .artsModule(ArtsModule())
             .build()
     }

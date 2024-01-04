@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.ui.viewmodels
+package com.example.lomakincountriesapp.presentation.arts.artsviewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

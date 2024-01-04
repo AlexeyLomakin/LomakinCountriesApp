@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.ui
+package com.example.lomakincountriesapp.presentation.arts
 
 import android.os.Bundle
 import android.view.View
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.databinding.ArtsListFragmentBinding
-import com.example.lomakincountriesapp.ui.viewmodels.ArtsModule
-import com.example.lomakincountriesapp.ui.viewmodels.ArtsViewModel
-import com.example.lomakincountriesapp.ui.viewmodels.ArtsViewModelFactory
+import com.example.lomakincountriesapp.di.arts.ArtsModule
+import com.example.lomakincountriesapp.presentation.arts.artsviewmodels.ArtsViewModel
+import com.example.lomakincountriesapp.presentation.arts.artsviewmodels.ArtsViewModelFactory
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
 class ArtsFragment : Fragment(R.layout.arts_list_fragment) {

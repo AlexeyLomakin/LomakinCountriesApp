@@ -1,6 +1,6 @@
 package com.example.lomakincountriesapp.network
 
-import com.example.lomakincountriesapp.data.Country
+import com.example.lomakincountriesapp.data.countries.Country
 import retrofit2.http.GET
 import retrofit2.http.Path
 

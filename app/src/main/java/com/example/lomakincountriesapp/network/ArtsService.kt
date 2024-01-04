@@ -1,6 +1,6 @@
 package com.example.lomakincountriesapp.network
 
-import com.example.lomakincountriesapp.data.Artworks
+import com.example.lomakincountriesapp.data.arts.Artworks
 import retrofit2.http.GET
 import retrofit2.http.Query
 

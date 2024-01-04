@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.ui
+package com.example.lomakincountriesapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +10,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //коммит в новую ветку
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root

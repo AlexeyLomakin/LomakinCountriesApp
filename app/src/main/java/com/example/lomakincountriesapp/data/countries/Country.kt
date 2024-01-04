@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.data
+package com.example.lomakincountriesapp.data.countries
 
 data class Country(
     val name: Name?,

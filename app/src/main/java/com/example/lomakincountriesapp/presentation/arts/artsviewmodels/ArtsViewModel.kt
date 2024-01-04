@@ -1,10 +1,10 @@
-package com.example.lomakincountriesapp.ui.viewmodels
+package com.example.lomakincountriesapp.presentation.arts.artsviewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lomakincountriesapp.data.Arts
+import com.example.lomakincountriesapp.data.arts.Arts
 import com.example.lomakincountriesapp.network.ArtsService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

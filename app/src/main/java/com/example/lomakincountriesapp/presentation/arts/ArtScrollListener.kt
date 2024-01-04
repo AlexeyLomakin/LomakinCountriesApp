@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.ui
+package com.example.lomakincountriesapp.presentation.arts
 
 import androidx.recyclerview.widget.RecyclerView
 
