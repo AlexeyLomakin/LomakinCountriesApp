@@ -8,8 +8,8 @@ class ArtsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        artsComponent = DaggerArtsComponent.builder()
-            .artsModule(ArtsModule())
+        artsComponent = DaggerArtsComponent
+            .builder()
             .build()
     }
 }

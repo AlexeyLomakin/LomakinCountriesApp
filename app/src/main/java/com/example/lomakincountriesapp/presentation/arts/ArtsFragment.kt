@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.databinding.ArtsListFragmentBinding
-import com.example.lomakincountriesapp.di.arts.ArtsModule
+import com.example.lomakincountriesapp.di.arts.DaggerArtsComponent
 import com.example.lomakincountriesapp.presentation.arts.artsviewmodels.ArtsViewModel
 import com.example.lomakincountriesapp.presentation.arts.artsviewmodels.ArtsViewModelFactory
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import javax.inject.Inject
 
 class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
 
-    private val artsService = ArtsModule()
-        .provideArtsService()
+    @Inject lateinit var factory: ArtsViewModelFactory
     private val viewModel by lazy {
         ViewModelProvider(
             this,
-            ArtsViewModelFactory(artsService)
+            factory
         )[ArtsViewModel::class.java]
     }
 
@@ -35,6 +35,11 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        DaggerArtsComponent
+            .builder()
+            .build()
+            .inject(this)
 
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
 
