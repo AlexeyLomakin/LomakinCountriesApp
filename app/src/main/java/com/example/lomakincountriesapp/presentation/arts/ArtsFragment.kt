@@ -28,9 +28,9 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
     private var adapter = ArtsAdapter()
 
     inner class ArtsScrollListener : ArtScrollListener() {
-        override fun loadMoreItems() {
-            viewModel.loadMoreItems()
-        }
+//        override fun loadMoreItems() {
+//            viewModel.loadMoreItems()
+//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
