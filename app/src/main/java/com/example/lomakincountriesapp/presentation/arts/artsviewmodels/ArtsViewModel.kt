@@ -22,9 +22,11 @@ class ArtsViewModel @Inject constructor(private val artsService: ArtsService) : 
         loadContent(currentPage)
     }
 
-    fun loadMoreItems() {
+     fun onPageFinished() {
         loadContent(++currentPage)
     }
+
+
 
     private fun loadContent(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {

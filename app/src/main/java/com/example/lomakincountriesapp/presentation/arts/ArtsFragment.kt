@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.databinding.ArtsListFragmentBinding
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
 
-    @Inject lateinit var factory: ArtsViewModelFactory
+    @Inject
+    lateinit var factory: ArtsViewModelFactory
     private val viewModel by lazy {
         ViewModelProvider(
             this,
@@ -27,10 +29,14 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
     private val binding by viewBinding(ArtsListFragmentBinding::bind)
     private var adapter = ArtsAdapter()
 
-    inner class ArtsScrollListener : ArtScrollListener() {
-//        override fun loadMoreItems() {
-//            viewModel.loadMoreItems()
-//        }
+    inner class ArtsScrollListener : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (recyclerView.canScrollVertically(newState)) {
+                viewModel.onPageFinished()
+            }
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
