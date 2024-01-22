@@ -2,29 +2,22 @@ package com.example.lomakincountriesapp.presentation.arts
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.lomakincountriesapp.R
 import com.example.lomakincountriesapp.databinding.ArtsListFragmentBinding
-import com.example.lomakincountriesapp.di.arts.ArtsApp
 import com.example.lomakincountriesapp.presentation.arts.artsviewmodels.ArtsViewModel
-import com.example.lomakincountriesapp.presentation.arts.artsviewmodels.ArtsViewModelFactory
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
 
-    @Inject
-    lateinit var factory: ArtsViewModelFactory
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            factory
-        )[ArtsViewModel::class.java]
-    }
+    private val viewModel: ArtsViewModel by viewModels()
 
     private val binding by viewBinding(ArtsListFragmentBinding::bind)
     private var adapter = ArtsAdapter()
@@ -41,10 +34,6 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (requireContext().applicationContext as ArtsApp)
-            .artsComponent
-            .inject(this)
-
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
 
         binding.artList.layoutManager = LinearLayoutManager(requireContext())
@@ -55,6 +44,13 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
         viewModel.artsData.observe(viewLifecycleOwner) { arts ->
             adapter.submitList(arts)
         }
+        viewModel.isMaxArts.observe(viewLifecycleOwner) { maxArts ->
+            if (maxArts == true) {
+                Toast.makeText(requireContext(), "The arts are over", Toast.LENGTH_LONG).show()
+                //viewModel.artsData.removeObservers(viewLifecycleOwner)
+            }
+        }
     }
 }
+
 

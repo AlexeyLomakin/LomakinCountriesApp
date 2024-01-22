@@ -1,15 +1,7 @@
 package com.example.lomakincountriesapp.di.arts
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class ArtsApp : Application() {
-
-    lateinit var artsComponent: ArtsComponent
-
-    override fun onCreate() {
-        super.onCreate()
-        artsComponent = DaggerArtsComponent
-            .builder()
-            .build()
-    }
-}
+@HiltAndroidApp
+class ArtsApp : Application()

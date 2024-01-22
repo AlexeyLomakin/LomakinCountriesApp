@@ -45,7 +45,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.10.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.10.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -61,7 +61,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     //coroutines
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     //ViewBindingPropertyDelegate
     implementation ("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
@@ -75,4 +75,14 @@ dependencies {
     //Dagger
     implementation ("com.google.dagger:dagger:2.50")
     kapt ("com.google.dagger:dagger-compiler:2.50")
+
+    //Hilt
+    implementation ("com.google.dagger:hilt-android:2.48")
+    kapt ("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    kapt("androidx.hilt:hilt-compiler:1.1.0")
+
+}
+kapt {
+    correctErrorTypes = true
 }
