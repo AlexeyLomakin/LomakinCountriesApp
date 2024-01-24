@@ -19,26 +19,29 @@ class ArtsViewModel @Inject constructor(private val artsService: ArtsService) : 
     private var _isMaxArts = MutableLiveData<Boolean>()
     val isMaxArts: LiveData<Boolean> = _isMaxArts
     private var currentPage = 1
-
+    private var totalPages : Int? = 0
 
     init {
         loadContent(currentPage)
         _isMaxArts.value = false
+        viewModelScope.launch(Dispatchers.IO) {
+             totalPages = artsService.getArtsTotalPages().pagination?.total
+        }
     }
 
     fun onPageFinished() {
-        loadContent(++currentPage)
+            if (currentPage != totalPages) {
+                loadContent(++currentPage)
+            } else {
+                _isMaxArts.postValue(true)
+            }
     }
 
     private fun loadContent(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val arts = artsService.getArtByPage(page)
-            val totalNumber = arts.pagination?.total
-            if (page != totalNumber) {
-                _artsData.postValue(_artsData.value.orEmpty() + arts.data)
-            } else {
-                _isMaxArts.postValue(true)
-            }
+            _artsData.postValue(_artsData.value.orEmpty() + arts.data)
         }
+
     }
 }
