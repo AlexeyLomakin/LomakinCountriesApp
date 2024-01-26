@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.ui
+package com.example.lomakincountriesapp.presentation.countries
 
 import android.os.Bundle
 import android.view.View

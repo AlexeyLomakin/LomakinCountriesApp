@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.data
+package com.example.lomakincountriesapp.data.arts
 
 data class Pagination(
     val current_page: Int?,

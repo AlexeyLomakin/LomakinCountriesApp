@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.ui
+package com.example.lomakincountriesapp.presentation.arts
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.lomakincountriesapp.R
-import com.example.lomakincountriesapp.data.Arts
+import com.example.lomakincountriesapp.data.arts.Arts
 import com.example.lomakincountriesapp.databinding.ArtFragmentBinding
 
 class ArtsAdapter() : ListAdapter<Arts, ArtsAdapter.ArtsViewHolder>(diffUtil) {

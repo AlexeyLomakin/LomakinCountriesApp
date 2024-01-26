@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.ui
+package com.example.lomakincountriesapp.presentation.countries
 
 import android.os.Bundle
 import android.view.View
@@ -18,7 +18,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class SearchFragment : Fragment(R.layout.search_fragment) {
+class CountriesSearchFragment : Fragment(R.layout.search_fragment) {
 
 
     private val binding by viewBinding(SearchFragmentBinding::bind)
@@ -48,7 +48,7 @@ class SearchFragment : Fragment(R.layout.search_fragment) {
                     }
 
                     requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.FragmentContainerView, DetailsFragment()).commit()
+                        .replace(R.id.FragmentContainerView, CountriesDetailsFragment()).commit()
                 }
             }
         }

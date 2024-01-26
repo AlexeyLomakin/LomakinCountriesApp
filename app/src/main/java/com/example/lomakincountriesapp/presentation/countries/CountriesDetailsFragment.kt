@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.ui
+package com.example.lomakincountriesapp.presentation.countries
 
 import android.os.Bundle
 import android.view.View
@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.lomakincountriesapp.R
-import com.example.lomakincountriesapp.data.Country
+import com.example.lomakincountriesapp.data.countries.Country
 import com.example.lomakincountriesapp.databinding.DetailsFragmentBinding
 import com.google.gson.Gson
 
-class DetailsFragment : Fragment(R.layout.details_fragment) {
+class CountriesDetailsFragment : Fragment(R.layout.details_fragment) {
 
     private val binding by viewBinding(DetailsFragmentBinding::bind)
 
@@ -19,7 +19,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         with(binding) {
 
             requireActivity().supportFragmentManager.setFragmentResultListener(
-                EXTRA_COUNTRY_REQUESTED_KEY, this@DetailsFragment
+                EXTRA_COUNTRY_REQUESTED_KEY, this@CountriesDetailsFragment
             ) { _, bundle ->
                 val countryStr = bundle.getString(COUNTRY_BUNDLE_KEY)
 
