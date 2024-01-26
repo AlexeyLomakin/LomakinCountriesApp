@@ -10,6 +10,4 @@ interface ArtsService {
     suspend fun getArtByPage(
         @Query("page") currentPage: Int?
     ): Artworks
-    @GET("artworks")
-    suspend fun getArtsTotalPages(): Artworks
 }
