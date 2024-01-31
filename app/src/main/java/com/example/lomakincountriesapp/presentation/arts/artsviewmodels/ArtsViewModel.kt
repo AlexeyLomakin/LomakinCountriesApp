@@ -1,51 +1,55 @@
 package com.example.lomakincountriesapp.presentation.arts.artsviewmodels
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lomakincountriesapp.data.arts.Arts
-import com.example.lomakincountriesapp.network.ArtsService
+import com.example.lomakincountriesapp.data.arts.ArtsEntity
+import com.example.lomakincountriesapp.presentation.arts.ArtRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ArtsViewModel @Inject constructor(private val artsService: ArtsService) : ViewModel() {
+class ArtsViewModel @Inject constructor(private val artRepository: ArtRepository) : ViewModel() {
 
-    private val _artsData = MutableLiveData<List<Arts>>()
-    val artsData: LiveData<List<Arts>> = _artsData
+    private val _artsData = MutableLiveData<List<ArtsEntity>>()
+    val artsData: LiveData<List<ArtsEntity>> = _artsData
     private var _isMaxArts = MutableLiveData<Boolean>()
     val isMaxArts: LiveData<Boolean> = _isMaxArts
-    private var currentPage = 1
-    private var totalPages: Int? = 0
+
 
     init {
-        loadFirstPage()
+       loadFirstPage()
         _isMaxArts.value = false
     }
 
     fun onPageFinished() {
-        if (currentPage != totalPages) {
-            loadContent(++currentPage)
-        } else {
-            _isMaxArts.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            val arts = artRepository.getAllArts()
+            val isAllPagesLoaded = arts.all { it.currentPage == it.totalPage }
+
+            if (!isAllPagesLoaded) {
+                loadContent()
+            } else {
+                _isMaxArts.postValue(true)
+            }
         }
     }
 
-    private fun loadFirstPage(){
+
+    private fun loadFirstPage() {
         viewModelScope.launch(Dispatchers.IO) {
-            val arts = artsService.getArtByPage(1)
-            totalPages = arts.pagination?.total
-            _artsData.postValue(_artsData.value.orEmpty() + arts.data)
+            val arts = artRepository.refreshArts(1)
+            _artsData.postValue(_artsData.value.orEmpty() + arts)
         }
     }
 
-    private fun loadContent(page: Int) {
+    private fun loadContent() {
         viewModelScope.launch(Dispatchers.IO) {
-            val arts = artsService.getArtByPage(page)
-            _artsData.postValue(_artsData.value.orEmpty() + arts.data)
+            val arts = artRepository.getAllArts()
+            _artsData.postValue(_artsData.value.orEmpty() + arts)
         }
     }
 }
+

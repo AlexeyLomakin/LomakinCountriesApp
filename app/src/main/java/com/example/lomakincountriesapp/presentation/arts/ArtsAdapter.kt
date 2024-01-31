@@ -9,19 +9,19 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.lomakincountriesapp.R
-import com.example.lomakincountriesapp.data.arts.Arts
+import com.example.lomakincountriesapp.data.arts.ArtsEntity
 import com.example.lomakincountriesapp.databinding.ArtFragmentBinding
 
-class ArtsAdapter() : ListAdapter<Arts, ArtsAdapter.ArtsViewHolder>(diffUtil) {
+class ArtsAdapter() : ListAdapter<ArtsEntity, ArtsAdapter.ArtsViewHolder>(diffUtil) {
 
     class ArtsViewHolder(view: View) : ViewHolder(view) {
         private val firstPartOfUrl = "https://www.artic.edu/iiif/2/"
         private val lastPartOfUrl = "/full/843,/0/default.jpg"
         private val bindings by viewBinding(ArtFragmentBinding::bind)
-        fun bind(art: Arts) {
+        fun bind(art: ArtsEntity) {
             bindings.titleText.text = art.title
-            bindings.artistText.text = art.artist_display
-            Glide.with(itemView.context).load(firstPartOfUrl + art.image_id + lastPartOfUrl)
+            bindings.artistText.text = art.artistDisplay
+            Glide.with(itemView.context).load(firstPartOfUrl + art.imageUrl + lastPartOfUrl)
                 .into(bindings.artImg)
         }
     }
@@ -38,12 +38,12 @@ class ArtsAdapter() : ListAdapter<Arts, ArtsAdapter.ArtsViewHolder>(diffUtil) {
         holder.bind(getItem(position))
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<Arts>() {
-            override fun areItemsTheSame(oldItem: Arts, newItem: Arts): Boolean =
-                oldItem.id == newItem.id
+        val diffUtil = object : DiffUtil.ItemCallback<ArtsEntity>() {
+            override fun areItemsTheSame(oldItem: ArtsEntity, newItem: ArtsEntity): Boolean =
+                oldItem.artId == newItem.artId
 
-            override fun areContentsTheSame(oldItem: Arts, newItem: Arts): Boolean {
-                return oldItem == newItem
+            override fun areContentsTheSame(oldItem: ArtsEntity, newItem: ArtsEntity): Boolean {
+                return oldItem.currentPage == newItem.currentPage
             }
 
         }
