@@ -1,12 +1,12 @@
 package com.example.lomakincountriesapp.di.arts
 
-import com.example.lomakincountriesapp.network.ArtsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import services.ArtsService
 import javax.inject.Singleton
 
 @Module

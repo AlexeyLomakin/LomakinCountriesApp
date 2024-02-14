@@ -2,6 +2,8 @@ package com.example.lomakincountriesapp.presentation.arts
 
 import android.content.Context
 import androidx.room.Room
+import com.example.data.room.ArtsDao
+import com.example.data.room.ArtsDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
