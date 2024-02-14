@@ -1,8 +1,10 @@
-package services
+package com.example.data.room
+
 
 import dataclasses.arts.Artworks
 import retrofit2.http.GET
 import retrofit2.http.Query
+
 
 interface ArtsService {
 

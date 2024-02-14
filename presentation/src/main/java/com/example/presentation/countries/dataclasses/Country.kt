@@ -1,4 +1,4 @@
-package dataclasses.countries
+package com.example.presentation.countries.dataclasses
 
 data class Country(
     val name: Name?,

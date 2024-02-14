@@ -5,9 +5,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
-import com.example.lomakincountriesapp.R
-import com.example.lomakincountriesapp.data.countries.Country
-import com.example.lomakincountriesapp.databinding.DetailsFragmentBinding
+import com.example.presentation.R
+import com.example.presentation.countries.dataclasses.Country
+import com.example.presentation.databinding.DetailsFragmentBinding
 import com.google.gson.Gson
 
 class CountriesDetailsFragment : Fragment(R.layout.details_fragment) {

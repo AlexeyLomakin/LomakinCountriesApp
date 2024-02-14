@@ -10,7 +10,8 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 33
+        minSdk = 29
+        targetSdk = 34
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -40,7 +41,6 @@ android {
 dependencies {
 
     implementation(project(":domain"))
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -64,4 +64,14 @@ dependencies {
 
     //Glade
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    //Gson
+    implementation ("com.google.code.gson:gson:2.10.1")
+
+    //coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    //retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }

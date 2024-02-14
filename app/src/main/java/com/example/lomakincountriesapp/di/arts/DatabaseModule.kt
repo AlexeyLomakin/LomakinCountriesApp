@@ -1,4 +1,4 @@
-package com.example.lomakincountriesapp.presentation.arts
+package com.example.lomakincountriesapp.di.arts
 
 import android.content.Context
 import androidx.room.Room

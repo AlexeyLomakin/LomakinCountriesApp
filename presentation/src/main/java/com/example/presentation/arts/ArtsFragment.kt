@@ -8,8 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.lomakincountriesapp.R
-import com.example.lomakincountriesapp.databinding.ArtsListFragmentBinding
+import com.example.presentation.R
+import com.example.presentation.databinding.ArtsListFragmentBinding
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
-import com.example.lomakincountriesapp.R
-import com.example.lomakincountriesapp.data.countries.Country
-import com.example.lomakincountriesapp.databinding.CountryFragmentBinding
+import com.example.presentation.R
+import com.example.presentation.countries.dataclasses.Country
+import com.example.presentation.databinding.CountryFragmentBinding
 
 class CountriesAdapter(
     private val countriesList: List<Country>,

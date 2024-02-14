@@ -10,8 +10,8 @@ import androidx.room.Query
 interface ArtsDao {
 
     @Query("select * from arts_database")
-    fun getAllArts(): LiveData<ArtsEntity>
+    fun getAllArts(): LiveData<List<ArtsRoomEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertArt(arts: List<ArtsEntity>)
+    fun insertArt(arts: List<ArtsRoomEntity>)
 }

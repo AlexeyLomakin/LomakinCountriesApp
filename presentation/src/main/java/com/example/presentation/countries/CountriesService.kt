@@ -1,6 +1,6 @@
-package services
+package com.example.presentation.countries
 
-import dataclasses.countries.Country
+import com.example.presentation.countries.dataclasses.Country
 import retrofit2.http.GET
 import retrofit2.http.Path
 

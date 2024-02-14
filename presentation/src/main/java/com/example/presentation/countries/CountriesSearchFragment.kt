@@ -6,9 +6,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.lomakincountriesapp.R
-import com.example.lomakincountriesapp.databinding.SearchFragmentBinding
-import com.example.lomakincountriesapp.network.CountriesService
+import com.example.presentation.R
+import com.example.presentation.databinding.SearchFragmentBinding
+import com.example.presentation.countries.CountriesService
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

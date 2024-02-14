@@ -5,9 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.lomakincountriesapp.R
-import com.example.lomakincountriesapp.databinding.CountriesListFragmentBinding
-import com.example.lomakincountriesapp.network.CountriesService
+import com.example.presentation.R
+import com.example.presentation.databinding.CountriesListFragmentBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

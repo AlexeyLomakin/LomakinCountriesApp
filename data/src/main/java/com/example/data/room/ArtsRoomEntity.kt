@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "arts_database")
-data class ArtsEntity(
+data class ArtsRoomEntity(
     @PrimaryKey(autoGenerate = true)
     var artId: Long = 0,
 
