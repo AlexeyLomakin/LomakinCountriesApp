@@ -14,45 +14,45 @@ import javax.inject.Inject
 @HiltViewModel
 class ArtsViewModel @Inject constructor(private val artRepository: ArtsRepository) : ViewModel() {
 
-    private val _artsData = MutableLiveData<List<ArtsDomainEntity>>()
-    val artsData: LiveData<List<ArtsDomainEntity>> = _artsData
-    private var _isMaxArts = MutableLiveData<Boolean>()
+    private val _isMaxArts = MutableLiveData<Boolean>()
     val isMaxArts: LiveData<Boolean> = _isMaxArts
+    private var currentPage: Int = 1
 
+    val artsData: LiveData<List<ArtsDomainEntity>> = artRepository.getAllArts()
 
     init {
-       loadFirstPage()
+        loadFirstPage()
         _isMaxArts.value = false
     }
 
     fun onPageFinished() {
         viewModelScope.launch(Dispatchers.IO) {
             val arts = artRepository.getAllArts()
-            val isAllPagesLoaded = arts.map { list ->
-                list.all {
-                    it.currentPage != it.totalPage
+            val isAllPagesLoaded = arts.map { data ->
+                data.all {
+                    currentPage == it.totalPage
                 }
             }
-            if (isAllPagesLoaded.value == true){
-                _isMaxArts.postValue(true)
+            if (isAllPagesLoaded.value != true) {
+                loadPages(++currentPage)
+
             } else {
-                loadContent()
+                _isMaxArts.postValue(true)
             }
         }
     }
-
 
     private fun loadFirstPage() {
         viewModelScope.launch(Dispatchers.IO) {
-            artRepository.saveAllArts(1)
+            artRepository.saveAllArts(currentPage)
         }
     }
 
-    private fun loadContent() {
+    private fun loadPages(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val arts = artRepository.getAllArts()
-            _artsData.postValue(_artsData.value.orEmpty() + arts.value.orEmpty())
+            artRepository.saveAllArts(page)
         }
     }
 }
+
 
