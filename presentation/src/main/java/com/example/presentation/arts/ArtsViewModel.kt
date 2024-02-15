@@ -2,7 +2,6 @@ package com.example.presentation.arts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.domain.ArtsDomainEntity
 import com.example.domain.ArtsRepository
@@ -27,13 +26,9 @@ class ArtsViewModel @Inject constructor(private val artRepository: ArtsRepositor
 
     fun onPageFinished() {
         viewModelScope.launch(Dispatchers.IO) {
-            val arts = artRepository.getAllArts()
-            val isAllPagesLoaded = arts.map { data ->
-                data.all {
-                    currentPage == it.totalPage
-                }
-            }
-            if (isAllPagesLoaded.value != true) {
+            val arts = artRepository.getAllArts().value
+            val areAllPagesNotLoaded = arts?.firstOrNull { currentPage == it.totalPage } == null
+            if (!areAllPagesNotLoaded) {
                 loadPages(++currentPage)
 
             } else {
