@@ -44,9 +44,8 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
             adapter.submitList(arts)
         }
         viewModel.isMaxArts.observe(viewLifecycleOwner) { maxArts ->
-            if (maxArts == true) {
+            if (maxArts) {
                 Toast.makeText(requireContext(), "The arts are over", Toast.LENGTH_LONG).show()
-                //viewModel.artsData.removeObservers(viewLifecycleOwner)
             }
         }
     }

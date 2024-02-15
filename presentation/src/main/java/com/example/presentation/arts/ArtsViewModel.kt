@@ -28,11 +28,10 @@ class ArtsViewModel @Inject constructor(private val artRepository: ArtsRepositor
         viewModelScope.launch(Dispatchers.IO) {
             val arts = artRepository.getAllArts().value
             val areAllPagesNotLoaded = arts?.firstOrNull { currentPage == it.totalPage } == null
-            if (!areAllPagesNotLoaded) {
-                loadPages(++currentPage)
-
-            } else {
+            if (areAllPagesNotLoaded) {
                 _isMaxArts.postValue(true)
+            } else {
+                loadPages(++currentPage)
             }
         }
     }

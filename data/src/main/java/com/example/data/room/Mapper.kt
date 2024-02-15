@@ -18,5 +18,4 @@ class RoomArtsMapper @Inject constructor() : Mapper<ArtsRoomEntity, ArtsDomainEn
            currentPage = input.currentPage
        )
     }
-
 }

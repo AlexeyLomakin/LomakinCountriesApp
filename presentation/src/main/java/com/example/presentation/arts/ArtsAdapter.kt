@@ -8,17 +8,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
+import com.example.domain.ArtsDomainEntity
 import com.example.presentation.R
 //import com.example.lomakincountriesapp.data.arts.ArtsEntity
 import com.example.presentation.databinding.ArtFragmentBinding
 
-class ArtsAdapter() : ListAdapter<com.example.domain.ArtsDomainEntity, ArtsAdapter.ArtsViewHolder>(diffUtil) {
+class ArtsAdapter() : ListAdapter<ArtsDomainEntity, ArtsAdapter.ArtsViewHolder>(diffUtil) {
 
     class ArtsViewHolder(view: View) : ViewHolder(view) {
         private val firstPartOfUrl = "https://www.artic.edu/iiif/2/"
         private val lastPartOfUrl = "/full/843,/0/default.jpg"
         private val bindings by viewBinding(ArtFragmentBinding::bind)
-        fun bind(art: com.example.domain.ArtsDomainEntity) {
+        fun bind(art: ArtsDomainEntity) {
             bindings.titleText.text = art.title
             bindings.artistText.text = art.artistDisplay
             Glide.with(itemView.context).load(firstPartOfUrl + art.imageUrl + lastPartOfUrl)
@@ -30,7 +31,6 @@ class ArtsAdapter() : ListAdapter<com.example.domain.ArtsDomainEntity, ArtsAdapt
         val view = LayoutInflater.from(parent.context.applicationContext).inflate(
             R.layout.art_fragment, parent, false
         )
-
         return ArtsViewHolder(view)
     }
 
@@ -38,11 +38,11 @@ class ArtsAdapter() : ListAdapter<com.example.domain.ArtsDomainEntity, ArtsAdapt
         holder.bind(getItem(position))
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<com.example.domain.ArtsDomainEntity>() {
-            override fun areItemsTheSame(oldItem: com.example.domain.ArtsDomainEntity, newItem: com.example.domain.ArtsDomainEntity): Boolean =
+        val diffUtil = object : DiffUtil.ItemCallback<ArtsDomainEntity>() {
+            override fun areItemsTheSame(oldItem: ArtsDomainEntity, newItem: ArtsDomainEntity): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: com.example.domain.ArtsDomainEntity, newItem: com.example.domain.ArtsDomainEntity): Boolean {
+            override fun areContentsTheSame(oldItem: ArtsDomainEntity, newItem: ArtsDomainEntity): Boolean {
                 return oldItem.currentPage == newItem.currentPage
             }
 
