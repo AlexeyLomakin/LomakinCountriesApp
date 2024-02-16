@@ -1,0 +1,10 @@
+package com.example.data.room
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+
+
+@Database(entities = [ArtsRoomEntity::class], version = 2, exportSchema = false)
+abstract class ArtsDatabase : RoomDatabase() {
+    abstract val artsDatabaseDao: ArtsDao
+}

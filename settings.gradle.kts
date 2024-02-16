@@ -15,4 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "LomakinCountriesApp"
 include(":app")
- 
+include(":data")
+include(":presentation")
+include(":domain")

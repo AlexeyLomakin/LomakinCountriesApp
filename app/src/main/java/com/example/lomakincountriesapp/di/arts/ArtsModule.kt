@@ -1,6 +1,12 @@
 package com.example.lomakincountriesapp.di.arts
 
-import com.example.lomakincountriesapp.network.ArtsService
+import com.example.data.room.ArtRepositoryImpl
+import com.example.data.room.ArtsRoomEntity
+import com.example.data.room.ArtsService
+import com.example.data.room.Mapper
+import com.example.data.room.RoomArtsMapper
+import com.example.domain.ArtsDomainEntity
+import com.example.domain.ArtsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +28,17 @@ class ArtsModule {
             .baseUrl(baseUrl)
             .build()
         return retrofit.create(ArtsService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideArtsRepository(impl : ArtRepositoryImpl): ArtsRepository {
+        return impl
+    }
+
+    @Singleton
+    @Provides
+    fun provideMapper(map: RoomArtsMapper): Mapper<ArtsRoomEntity, ArtsDomainEntity> {
+        return map
     }
 }
