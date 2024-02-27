@@ -47,5 +47,3 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
         }
     }
 }
-
-

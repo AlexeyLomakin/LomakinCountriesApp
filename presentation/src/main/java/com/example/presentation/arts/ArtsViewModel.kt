@@ -31,5 +31,3 @@ class ArtsViewModel @Inject constructor(
         }
     }
 }
-
-

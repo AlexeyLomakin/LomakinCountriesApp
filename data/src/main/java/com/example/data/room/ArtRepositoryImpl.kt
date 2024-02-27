@@ -13,7 +13,6 @@ class ArtRepositoryImpl @Inject constructor(
 ): ArtsRepository {
     override suspend fun saveAllArts(page: Int) {
         try {
-
             val response = artsService.getAllArts(page)
 
             val artsRoomEntityList = response.data.map { list ->
@@ -24,14 +23,11 @@ class ArtRepositoryImpl @Inject constructor(
                     totalPage = response.pagination?.total,
                     currentPage = response.pagination?.current_page,
                 )
-
             }
             artsDao.insertArt(artsRoomEntityList)
-
         } catch (e: Exception) {
         }
     }
-
 
     override fun getAllArts(): LiveData<List<ArtsDomainEntity>> {
 
