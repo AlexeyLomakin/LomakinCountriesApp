@@ -1,6 +1,5 @@
 package com.example.presentation.arts
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.ArtsDomainEntity
@@ -17,15 +16,12 @@ class ArtsViewModel @Inject constructor(
     private val saveAllArtsUseCase: SaveAllArtsUseCase,
 ) : ViewModel() {
 
-    private val _isMaxArts = MutableLiveData<Boolean>()
-    val isMaxArts: LiveData<Boolean> = _isMaxArts
     private var currentPage: Int = 1
 
     val artsData: LiveData<List<ArtsDomainEntity>> = getAllArtsUseCase()
 
     init {
         loadFirstPage()
-        _isMaxArts.value = false
     }
 
     fun onPageFinished() {
