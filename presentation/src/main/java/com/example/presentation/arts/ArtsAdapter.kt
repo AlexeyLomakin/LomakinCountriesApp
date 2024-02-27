@@ -40,10 +40,10 @@ class ArtsAdapter() : ListAdapter<ArtsDomainEntity, ArtsAdapter.ArtsViewHolder>(
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<ArtsDomainEntity>() {
             override fun areItemsTheSame(oldItem: ArtsDomainEntity, newItem: ArtsDomainEntity): Boolean =
-                oldItem.id == newItem.id
+                oldItem.artId == newItem.artId
 
             override fun areContentsTheSame(oldItem: ArtsDomainEntity, newItem: ArtsDomainEntity): Boolean {
-                return oldItem.currentPage == newItem.currentPage
+                return oldItem == newItem
             }
 
         }

@@ -10,7 +10,8 @@ interface Mapper<I,O> {
 class RoomArtsMapper @Inject constructor() : Mapper<ArtsRoomEntity, ArtsDomainEntity>{
     override fun map(input: ArtsRoomEntity): ArtsDomainEntity {
        return ArtsDomainEntity(
-           id = input.artId ,
+           id = input.id ,
+           artId = input.artId,
            title = input.title,
            totalPage = input.totalPage,
            artistDisplay = input.artistDisplay,

@@ -1,5 +1,6 @@
 package com.example.data.room
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.example.domain.ArtsDomainEntity
@@ -18,6 +19,7 @@ class ArtRepositoryImpl @Inject constructor(
             val artsRoomEntityList = response.data.map { list ->
                 ArtsRoomEntity(
                     title = list.title,
+                    artId = list.id,
                     artistDisplay = list.artist_display,
                     imageUrl = list.image_id,
                     totalPage = response.pagination?.total,
@@ -26,6 +28,7 @@ class ArtRepositoryImpl @Inject constructor(
             }
             artsDao.insertArt(artsRoomEntityList)
         } catch (e: Exception) {
+            Log.d("exception","${e.message}")
         }
     }
 
