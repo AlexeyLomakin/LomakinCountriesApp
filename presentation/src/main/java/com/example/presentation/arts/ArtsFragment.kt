@@ -26,6 +26,8 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
             super.onScrollStateChanged(recyclerView, newState)
             if (recyclerView.canScrollVertically(newState)) {
                 viewModel.onPageFinished()
+            } else {
+                Toast.makeText(requireContext(), "The arts are over", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -42,11 +44,6 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
 
         viewModel.artsData.observe(viewLifecycleOwner) { arts ->
             adapter.submitList(arts)
-        }
-        viewModel.isMaxArts.observe(viewLifecycleOwner) { maxArts ->
-            if (maxArts) {
-                Toast.makeText(requireContext(), "The arts are over", Toast.LENGTH_LONG).show()
-            }
         }
     }
 }

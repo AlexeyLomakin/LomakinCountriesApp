@@ -7,6 +7,10 @@ import com.example.data.room.Mapper
 import com.example.data.room.RoomArtsMapper
 import com.example.domain.ArtsDomainEntity
 import com.example.domain.ArtsRepository
+import com.example.domain.usecases.GetAllArtsUseCase
+import com.example.domain.usecases.GetAllArtsUseCaseImpl
+import com.example.domain.usecases.SaveAllArtsUseCase
+import com.example.domain.usecases.SaveAllArtsUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,5 +44,15 @@ class ArtsModule {
     @Provides
     fun provideMapper(map: RoomArtsMapper): Mapper<ArtsRoomEntity, ArtsDomainEntity> {
         return map
+    }
+
+    @Provides
+    fun provideGetAllArtsUseCase(getAllArts: GetAllArtsUseCaseImpl): GetAllArtsUseCase{
+        return getAllArts
+    }
+
+    @Provides
+    fun provideSaveAllArtsUseCase(saveAllArts: SaveAllArtsUseCaseImpl): SaveAllArtsUseCase {
+        return saveAllArts
     }
 }
