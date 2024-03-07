@@ -1,6 +1,6 @@
 package com.example.data.room
 
-import android.util.Log
+import TimberFileLog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.example.domain.ArtsDomainEntity
@@ -28,7 +28,7 @@ class ArtRepositoryImpl @Inject constructor(
             }
             artsDao.insertArt(artsRoomEntityList)
         } catch (e: Exception) {
-            Log.d("exception","${e.message}")
+            TimberFileLog().log(1,e)
         }
     }
 

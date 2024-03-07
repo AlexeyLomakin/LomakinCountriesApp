@@ -1,5 +1,6 @@
 package com.example.lomakincountriesapp.di.arts
 
+import TimberFileLog
 import com.example.data.room.ArtRepositoryImpl
 import com.example.data.room.ArtsRoomEntity
 import com.example.data.room.ArtsService
@@ -17,6 +18,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -54,5 +56,10 @@ class ArtsModule {
     @Provides
     fun provideSaveAllArtsUseCase(saveAllArts: SaveAllArtsUseCaseImpl): SaveAllArtsUseCase {
         return saveAllArts
+    }
+
+    @Provides
+    fun provideTimberTree():Timber.Tree{
+        return TimberFileLog()
     }
 }
