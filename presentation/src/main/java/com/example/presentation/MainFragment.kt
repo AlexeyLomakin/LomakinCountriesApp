@@ -1,5 +1,6 @@
 package com.example.presentation
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -19,6 +20,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
 
+            val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Приветствие")
+                .setMessage("Добро пожаловать")
+                .setPositiveButton("Ок") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Пока") { _, _ ->
+                    requireActivity().finish()
+                }.create().show()
             artsListButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, ArtsFragment()).commit()
