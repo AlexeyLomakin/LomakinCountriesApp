@@ -1,4 +1,5 @@
 package com.example.presentation.arts
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,33 +22,40 @@ class ArtsViewModel @Inject constructor(
     private val _isMaxArts = MutableLiveData<Boolean>()
     val isMaxArts: LiveData<Boolean> = _isMaxArts
     val artsData: LiveData<List<ArtsDomainEntity>> = getAllArtsUseCase()
-    private val totalPages = artsData.value?.get(1)?.totalPage
+    private var totalPages: Int? = null
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             loadFirstPage()
         }
         _isMaxArts.value = false
+        artsData.observeForever{ arts ->
+            if (arts.isNotEmpty()){
+                totalPages = artsData.value?.get(1)?.totalPage
+                artsData.removeObserver{}
+            }
+        }
     }
 
     fun onPageFinished() {
         viewModelScope.launch(Dispatchers.IO) {
-            if(currentPage == totalPages){
+            if (currentPage == totalPages) {
                 _isMaxArts.value = true
-            }else{
+            } else {
                 loadPages(++currentPage)
             }
         }
     }
 
     private suspend fun loadFirstPage() {
-            saveAllArtsUseCase(FIRST_PAGE_NUM)
+        saveAllArtsUseCase(FIRST_PAGE_NUM)
     }
 
     private suspend fun loadPages(page: Int) {
-            saveAllArtsUseCase(page)
+        saveAllArtsUseCase(page)
     }
-    companion object{
+
+    companion object {
         private const val FIRST_PAGE_NUM = 1
     }
 }

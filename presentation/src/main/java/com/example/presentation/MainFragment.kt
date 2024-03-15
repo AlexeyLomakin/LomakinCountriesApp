@@ -21,14 +21,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         with(binding) {
 
             val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Приветствие")
-                .setMessage("Добро пожаловать")
-                .setPositiveButton("Ок") { dialog, _ ->
+            builder.setTitle(R.string.arts_alert_dialog_title)
+                .setMessage(R.string.arts_alert_dialog_message)
+                .setPositiveButton(R.string.arts_alert_dialog_positive_button) { dialog, _ ->
                     dialog.dismiss()
                 }
-                .setNegativeButton("Пока") { _, _ ->
+                .setNegativeButton(R.string.arts_alert_dialog_negative_button) { _, _ ->
                     requireActivity().finish()
                 }.create().show()
+
             artsListButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, ArtsFragment()).commit()
