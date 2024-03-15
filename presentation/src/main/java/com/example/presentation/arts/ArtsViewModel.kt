@@ -18,7 +18,7 @@ class ArtsViewModel @Inject constructor(
     private val saveAllArtsUseCase: SaveAllArtsUseCase,
 ) : ViewModel() {
 
-    private var currentPage: Int = 1
+    private var currentPage = 1
     private val _isMaxArts = MutableLiveData<Boolean>()
     val isMaxArts: LiveData<Boolean> = _isMaxArts
     val artsData: LiveData<List<ArtsDomainEntity>> = getAllArtsUseCase()
@@ -29,12 +29,6 @@ class ArtsViewModel @Inject constructor(
             loadFirstPage()
         }
         _isMaxArts.value = false
-        artsData.observeForever{ arts ->
-            if (arts.isNotEmpty()){
-                totalPages = artsData.value?.get(1)?.totalPage
-                artsData.removeObserver{}
-            }
-        }
     }
 
     fun onPageFinished() {
@@ -53,6 +47,15 @@ class ArtsViewModel @Inject constructor(
 
     private suspend fun loadPages(page: Int) {
         saveAllArtsUseCase(page)
+    }
+
+    fun getTotalPages() {
+        totalPages = artsData.value
+            ?.filter {
+                it.totalPage != null
+            }?.maxByOrNull {
+                it.totalPage!!
+            }?.totalPage
     }
 
     companion object {
