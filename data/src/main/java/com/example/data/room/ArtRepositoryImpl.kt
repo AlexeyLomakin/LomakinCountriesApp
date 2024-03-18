@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.example.domain.ArtsDomainEntity
 import com.example.domain.ArtsRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class ArtRepositoryImpl @Inject constructor(
@@ -13,25 +14,23 @@ class ArtRepositoryImpl @Inject constructor(
 ): ArtsRepository {
     override suspend fun saveAllArts(page: Int) {
         try {
-
             val response = artsService.getAllArts(page)
 
             val artsRoomEntityList = response.data.map { list ->
                 ArtsRoomEntity(
                     title = list.title,
+                    artId = list.id,
                     artistDisplay = list.artist_display,
                     imageUrl = list.image_id,
                     totalPage = response.pagination?.total,
                     currentPage = response.pagination?.current_page,
                 )
-
             }
             artsDao.insertArt(artsRoomEntityList)
-
         } catch (e: Exception) {
+            Timber.e(e)
         }
     }
-
 
     override fun getAllArts(): LiveData<List<ArtsDomainEntity>> {
 

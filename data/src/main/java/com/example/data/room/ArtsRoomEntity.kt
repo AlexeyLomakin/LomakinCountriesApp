@@ -7,7 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "arts_database")
 data class ArtsRoomEntity(
     @PrimaryKey(autoGenerate = true)
-    var artId: Long = 0,
+    var id: Long = 0,
+
+    @ColumnInfo(name = "art_id")
+    var artId: Long? = null,
 
     @ColumnInfo(name = "title")
     var title: String? = null,
