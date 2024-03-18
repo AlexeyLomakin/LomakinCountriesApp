@@ -48,12 +48,8 @@ class ArtsViewModel @Inject constructor(
     private suspend fun loadPages(page: Int) {
         saveAllArtsUseCase(page)
         if (totalPages == null) {
-            setTotalPages()
+            totalPages = artsData.value?.firstOrNull()?.totalPage
         }
-    }
-
-    private fun setTotalPages() {
-        totalPages = artsData.value?.firstOrNull()?.totalPage
     }
 
     companion object {
