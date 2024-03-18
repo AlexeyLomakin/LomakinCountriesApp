@@ -22,11 +22,12 @@ class ArtsViewModel @Inject constructor(
     private val _isMaxArts = MutableLiveData<Boolean>()
     val isMaxArts: LiveData<Boolean> = _isMaxArts
     val artsData: LiveData<List<ArtsDomainEntity>> = getAllArtsUseCase()
-    private var totalPages: Int? = null
+    private var totalPages: Int? = 0
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             loadFirstPage()
+            setTotalPages()
         }
         _isMaxArts.value = false
     }
@@ -43,19 +44,15 @@ class ArtsViewModel @Inject constructor(
 
     private suspend fun loadFirstPage() {
         saveAllArtsUseCase(FIRST_PAGE_NUM)
+        setTotalPages()
     }
 
     private suspend fun loadPages(page: Int) {
         saveAllArtsUseCase(page)
     }
 
-    fun getTotalPages() {
-        totalPages = artsData.value
-            ?.filter {
-                it.totalPage != null
-            }?.maxByOrNull {
-                it.totalPage!!
-            }?.totalPage
+    private fun setTotalPages() {
+        totalPages = artsData.value?.firstOrNull()?.totalPage
     }
 
     companion object {

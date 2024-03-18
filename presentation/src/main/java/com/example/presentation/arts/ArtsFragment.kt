@@ -44,7 +44,6 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
 
         viewModel.artsData.observe(viewLifecycleOwner) { arts ->
             adapter.submitList(arts)
-            viewModel.getTotalPages()
         }
 
         viewModel.isMaxArts.observe(viewLifecycleOwner) { maxArts ->
