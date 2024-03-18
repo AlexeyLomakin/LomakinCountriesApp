@@ -27,7 +27,6 @@ class ArtsViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             loadFirstPage()
-            setTotalPages()
         }
         _isMaxArts.value = false
     }
@@ -44,11 +43,13 @@ class ArtsViewModel @Inject constructor(
 
     private suspend fun loadFirstPage() {
         saveAllArtsUseCase(FIRST_PAGE_NUM)
-        setTotalPages()
     }
 
     private suspend fun loadPages(page: Int) {
         saveAllArtsUseCase(page)
+        if (totalPages == null) {
+            setTotalPages()
+        }
     }
 
     private fun setTotalPages() {
