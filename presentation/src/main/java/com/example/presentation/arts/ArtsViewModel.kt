@@ -22,7 +22,7 @@ class ArtsViewModel @Inject constructor(
     private val _isMaxArts = MutableLiveData<Boolean>()
     val isMaxArts: LiveData<Boolean> = _isMaxArts
     val artsData: LiveData<List<ArtsDomainEntity>> = getAllArtsUseCase()
-    private var totalPages: Int? = 0
+    private var totalPages: Int? = null
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
