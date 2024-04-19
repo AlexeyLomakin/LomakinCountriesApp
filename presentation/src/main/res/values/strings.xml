@@ -5,8 +5,12 @@
     <string name="search_country_button">Поиск</string>
     <string name="countries_search_hint">Введите название страны</string>
     <string name="arts_list_button">Список картин</string>
-    <string name="arts_alert_dialog_title">Приветствие</string>
-    <string name="arts_alert_dialog_message">Добро пожаловать</string>
-    <string name="arts_alert_dialog_positive_button">Ок</string>
-    <string name="arts_alert_dialog_negative_button">Пока!</string>
+    <string name="arts_alert_dialog_greeting_title">Приветствие</string>
+    <string name="arts_alert_dialog_greeting_message">Добро пожаловать</string>
+    <string name="arts_alert_dialog_greeting_positive_button">Ок</string>
+    <string name="arts_alert_dialog_greeting_negative_button">Пока!</string>
+    <string name="arts_alert_dialog_farewell_message">Вы действительно хотите выйти?</string>
+    <string name="arts_alert_dialog_farewell_positive_button">Да</string>
+    <string name="arts_alert_dialog_farewell_negative_button">Нет</string>
+    farewell
 </resources>

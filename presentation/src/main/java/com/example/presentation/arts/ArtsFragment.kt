@@ -3,11 +3,13 @@ package com.example.presentation.arts
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.MainFragment
 import com.example.presentation.R
 import com.example.presentation.databinding.ArtsListFragmentBinding
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -37,6 +39,10 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
 
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.FragmentContainerView, MainFragment()).commit()
+        }.isEnabled = true
+
         binding.artList.layoutManager = LinearLayoutManager(requireContext())
         binding.artList.addItemDecoration(divider)
         binding.artList.adapter = adapter
@@ -50,7 +56,6 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
             if (maxArts) {
                 Toast.makeText(requireContext(), "The arts are over", Toast.LENGTH_LONG).show()
             }
-
         }
     }
 }

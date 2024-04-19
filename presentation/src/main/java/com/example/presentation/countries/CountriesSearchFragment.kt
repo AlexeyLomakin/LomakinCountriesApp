@@ -2,10 +2,12 @@ package com.example.presentation.countries
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.MainFragment
 import com.example.presentation.R
 import com.example.presentation.databinding.SearchFragmentBinding
 import com.google.gson.Gson
@@ -29,6 +31,10 @@ class CountriesSearchFragment : Fragment(R.layout.search_fragment) {
             val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(baseUrl).build()
             val retrofitService: CountriesService = retrofit.create(CountriesService::class.java)
+
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.FragmentContainerView, MainFragment()).commit()
+            }.isEnabled = true
 
             searchButton.setOnClickListener {
 

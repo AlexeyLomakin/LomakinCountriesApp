@@ -2,6 +2,7 @@ package com.example.presentation.countries
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
@@ -17,6 +18,10 @@ class CountriesDetailsFragment : Fragment(R.layout.details_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.FragmentContainerView, CountriesSearchFragment()).commit()
+            }.isEnabled = true
 
             requireActivity().supportFragmentManager.setFragmentResultListener(
                 EXTRA_COUNTRY_REQUESTED_KEY, this@CountriesDetailsFragment

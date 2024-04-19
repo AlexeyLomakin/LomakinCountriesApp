@@ -10,7 +10,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.domain.ArtsDomainEntity
 import com.example.presentation.R
-//import com.example.lomakincountriesapp.data.arts.ArtsEntity
 import com.example.presentation.databinding.ArtFragmentBinding
 
 class ArtsAdapter() : ListAdapter<ArtsDomainEntity, ArtsAdapter.ArtsViewHolder>(diffUtil) {
