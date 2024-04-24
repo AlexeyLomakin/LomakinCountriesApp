@@ -22,20 +22,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (isInternetAvailable(requireContext())) {
-
-            val enterDialog = AlertDialog.Builder(requireActivity())
-
-            enterDialog.setMessage("Добро пожаловать!")
-                .setPositiveButton("Ok"){dialog, _ ->
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Пока"){_,_ ->
-                    requireActivity().finish()
-                }
-            enterDialog.show()
-        }
-        else{
+        if (isInternetNotAvailable(requireContext())) {
             val exitDialog = AlertDialog.Builder(requireActivity())
             exitDialog.setMessage("У вас нет подключения к интернету")
                 .setPositiveButton("Ok"){_, _ ->
@@ -78,17 +65,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-    private fun isInternetAvailable(context: Context): Boolean {
+    private fun isInternetNotAvailable(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val network = connectivityManager.activeNetwork ?: return false
+        val network = connectivityManager.activeNetwork ?: return true
         val networkCapabilities =
-            connectivityManager.getNetworkCapabilities(network) ?: return false
+            connectivityManager.getNetworkCapabilities(network) ?: return true
 
         return when {
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> false
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> false
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> false
 
             else ->  false
         }
