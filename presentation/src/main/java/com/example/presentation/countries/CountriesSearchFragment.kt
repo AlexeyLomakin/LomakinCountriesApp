@@ -2,6 +2,7 @@ package com.example.presentation.countries
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -21,7 +22,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CountriesSearchFragment : Fragment(R.layout.search_fragment) {
 
-
     private val binding by viewBinding(SearchFragmentBinding::bind)
     private val baseUrl = "https://restcountries.com/v3.1/"
 
@@ -33,27 +33,32 @@ class CountriesSearchFragment : Fragment(R.layout.search_fragment) {
             val retrofitService: CountriesService = retrofit.create(CountriesService::class.java)
 
             requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.FragmentContainerView, MainFragment()).commit()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.FragmentContainerView, MainFragment())
+                    .commit()
             }.isEnabled = true
 
             searchButton.setOnClickListener {
-
                 val countryName = binding.countryTextSearch.text.toString()
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    val country = retrofitService.getCountryByName(countryName).first()
-
-                    val jsonString = Gson().toJson(country)
-
+                    val response = retrofitService.getCountryByName(countryName)
                     withContext(Dispatchers.Main) {
-                        setFragmentResult(
-                            EXTRA_COUNTRY_REQUESTED_KEY,
-                            bundleOf(COUNTRY_BUNDLE_KEY to jsonString)
-                        )
-                    }
+                        if (response.isSuccessful) {
+                            val country = response.body()?.first()
+                            val jsonString = Gson().toJson(country)
 
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.FragmentContainerView, CountriesDetailsFragment()).commit()
+                            setFragmentResult(
+                                EXTRA_COUNTRY_REQUESTED_KEY,
+                                bundleOf(COUNTRY_BUNDLE_KEY to jsonString)
+                            )
+
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.FragmentContainerView, CountriesDetailsFragment()).commit()
+                        } else {
+                            Toast.makeText(requireContext(), "Такой страны нет", Toast.LENGTH_LONG).show()
+                        }
+                    }
                 }
             }
         }
@@ -64,3 +69,5 @@ class CountriesSearchFragment : Fragment(R.layout.search_fragment) {
         private const val COUNTRY_BUNDLE_KEY = "COUNTRY_BUNDLE_KEY"
     }
 }
+
+

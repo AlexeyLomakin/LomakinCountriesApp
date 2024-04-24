@@ -40,7 +40,11 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.FragmentContainerView, MainFragment()).commit()
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.FragmentContainerView, MainFragment())
+                .commit()
         }.isEnabled = true
 
         binding.artList.layoutManager = LinearLayoutManager(requireContext())

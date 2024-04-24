@@ -12,6 +12,7 @@
     android:id="@+id/flag"
     android:layout_width="100dp"
     android:layout_height="100dp"
+    android:background="@drawable/border_background"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     tools:srcCompat="@tools:sample/avatars"/>
@@ -21,6 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/flag"
         android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +91,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Столица:"
+        android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/flag"
         app:layout_constraintTop_toBottomOf="@+id/country_name" />
 
@@ -98,6 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/capital_text"
         app:layout_constraintTop_toBottomOf="@+id/country_name" />
 

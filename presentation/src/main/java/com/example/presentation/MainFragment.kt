@@ -1,6 +1,9 @@
 package com.example.presentation
 
 import android.app.AlertDialog
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
@@ -17,6 +20,31 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val binding by viewBinding(FragmentMainBinding::bind)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (isInternetAvailable(requireContext())) {
+
+            val enterDialog = AlertDialog.Builder(requireActivity())
+
+            enterDialog.setMessage("Добро пожаловать!")
+                .setPositiveButton("Ok"){dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Пока"){_,_ ->
+                    requireActivity().finish()
+                }
+            enterDialog.show()
+        }
+        else{
+            val exitDialog = AlertDialog.Builder(requireActivity())
+            exitDialog.setMessage("У вас нет подключения к интернету")
+                .setPositiveButton("Ok"){_, _ ->
+                    requireActivity().finish()
+                }
+            exitDialog.show()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
@@ -31,16 +59,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         dialog.dismiss()
                     }.create().show()
             }.isEnabled = true
-
-            val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            builder.setTitle(R.string.arts_alert_dialog_greeting_title)
-                .setMessage(R.string.arts_alert_dialog_greeting_message)
-                .setPositiveButton(R.string.arts_alert_dialog_greeting_positive_button) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .setNegativeButton(R.string.arts_alert_dialog_greeting_negative_button) { _, _ ->
-                    requireActivity().finish()
-                }.create().show()
 
 
             artsListButton.setOnClickListener {
@@ -57,6 +75,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, CountriesSearchFragment()).commit()
             }
+        }
+    }
+
+    private fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities =
+            connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return when {
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+
+            else ->  false
         }
     }
 }
