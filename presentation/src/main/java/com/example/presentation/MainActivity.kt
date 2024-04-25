@@ -2,6 +2,9 @@ package com.example.presentation
 
 
 import android.app.AlertDialog
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.presentation.databinding.ActivityMainBinding
@@ -19,7 +22,14 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         val enterDialog = AlertDialog.Builder(this)
-
+        if (isInternetNotAvailable(this)) {
+            val exitDialog = AlertDialog.Builder(this)
+            exitDialog.setMessage("У вас нет подключения к интернету")
+                .setPositiveButton("Ok"){_, _ ->
+                    this.finish()
+                }
+            exitDialog.show()
+        } else {
         enterDialog.setMessage("Добро пожаловать!")
             .setPositiveButton("Ok"){dialog, _ ->
                 dialog.dismiss()
@@ -28,5 +38,20 @@ class MainActivity : AppCompatActivity() {
                 this.finish()
             }
         enterDialog.show()
+        }
+    }
+
+    private fun isInternetNotAvailable(context: Context): Boolean {
+        val connectivityManager = context
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return true
+        val networkCapabilities =
+            connectivityManager.getNetworkCapabilities(network) ?: return true
+        return when {
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> false
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> false
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> false
+            else ->  false
+        }
     }
 }

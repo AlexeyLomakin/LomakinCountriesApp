@@ -51,7 +51,9 @@ class CountriesListFragment : Fragment(R.layout.countries_list_fragment) {
                 .getAllCountries()
             if (countriesListResponse.isSuccessful) {
 
-                val countriesList = countriesListResponse.body()
+                val countriesList = countriesListResponse.body()?.sortedBy {country ->
+                    country.name?.common
+                }
                 withContext(Dispatchers.Main) {
 
                     binding.countriesList.layoutManager = LinearLayoutManager(requireContext())

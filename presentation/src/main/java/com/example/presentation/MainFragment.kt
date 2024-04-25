@@ -1,9 +1,6 @@
 package com.example.presentation
 
 import android.app.AlertDialog
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
@@ -20,18 +17,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val binding by viewBinding(FragmentMainBinding::bind)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (isInternetNotAvailable(requireContext())) {
-            val exitDialog = AlertDialog.Builder(requireActivity())
-            exitDialog.setMessage("У вас нет подключения к интернету")
-                .setPositiveButton("Ok"){_, _ ->
-                    requireActivity().finish()
-                }
-            exitDialog.show()
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
@@ -47,7 +32,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     }.create().show()
             }.isEnabled = true
 
-
             artsListButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, ArtsFragment()).commit()
@@ -62,22 +46,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, CountriesSearchFragment()).commit()
             }
-        }
-    }
-
-    private fun isInternetNotAvailable(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val network = connectivityManager.activeNetwork ?: return true
-        val networkCapabilities =
-            connectivityManager.getNetworkCapabilities(network) ?: return true
-
-        return when {
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> false
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> false
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> false
-
-            else ->  false
         }
     }
 }

@@ -14,9 +14,9 @@ class ArtRepositoryImpl @Inject constructor(
 ): ArtsRepository {
     override suspend fun saveAllArts(page: Int) {
         try {
-            val response = artsService.getAllArts(page)
+            val response = artsService.getAllArts(page).body()
 
-            val artsRoomEntityList = response.data.map { list ->
+            val artsRoomEntityList = response?.data?.map { list ->
                 ArtsRoomEntity(
                     title = list.title,
                     artId = list.id,
@@ -26,7 +26,14 @@ class ArtRepositoryImpl @Inject constructor(
                     currentPage = response.pagination?.current_page,
                 )
             }
-            artsDao.insertArt(artsRoomEntityList)
+            if (!artsRoomEntityList.isNullOrEmpty()) {
+                    artsDao.insertArt(artsRoomEntityList)
+                Timber.d("added ${response.data.size} arts")
+                }
+            else {
+                Timber.d("Response is empty")
+
+            }
         } catch (e: Exception) {
             Timber.e(e)
         }
