@@ -15,8 +15,22 @@ class CountriesAdapter(
     private val countriesList: List<Country>,
 ) : RecyclerView.Adapter<CountriesAdapter.CountriesViewHolder>() {
 
-    class CountriesViewHolder(view: View) : ViewHolder(view) {
+    private lateinit var onItemClickListener: OnItemClickListener
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
+    }
+    class CountriesViewHolder(view: View, listener: OnItemClickListener) : ViewHolder(view) {
         private val bindings by viewBinding(CountryFragmentBinding::bind)
+        init {
+            view.setOnClickListener {
+                listener.onItemClick(bindingAdapterPosition)
+            }
+        }
         fun bind(country: Country) {
             bindings.countryName.text = country.name?.common
             Glide.with(itemView.context).load(country.flags?.png).into(bindings.flag)
@@ -31,7 +45,7 @@ class CountriesAdapter(
             R.layout.country_fragment, viewGroup, false
         )
 
-        return CountriesViewHolder(view)
+        return CountriesViewHolder(view,onItemClickListener)
     }
 
     override fun getItemCount(): Int = countriesList.size

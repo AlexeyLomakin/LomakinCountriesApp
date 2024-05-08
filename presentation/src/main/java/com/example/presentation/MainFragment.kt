@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.arts.ArtsFragment
 import com.example.presentation.countries.CountriesListFragment
-import com.example.presentation.countries.CountriesSearchFragment
 import com.example.presentation.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,11 +39,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             countriesListButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, CountriesListFragment()).commit()
-            }
-
-            searchButton.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.FragmentContainerView, CountriesSearchFragment()).commit()
             }
         }
     }
