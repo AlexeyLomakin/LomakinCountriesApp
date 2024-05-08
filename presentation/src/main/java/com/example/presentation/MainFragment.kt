@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.arts.ArtsFragment
 import com.example.presentation.countries.CountriesListFragment
-import com.example.presentation.countries.CountriesSearchFragment
 import com.example.presentation.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,17 +31,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     }.create().show()
             }.isEnabled = true
 
-            val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            builder.setTitle(R.string.arts_alert_dialog_greeting_title)
-                .setMessage(R.string.arts_alert_dialog_greeting_message)
-                .setPositiveButton(R.string.arts_alert_dialog_greeting_positive_button) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .setNegativeButton(R.string.arts_alert_dialog_greeting_negative_button) { _, _ ->
-                    requireActivity().finish()
-                }.create().show()
-
-
             artsListButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, ArtsFragment()).commit()
@@ -51,11 +39,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             countriesListButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.FragmentContainerView, CountriesListFragment()).commit()
-            }
-
-            searchButton.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.FragmentContainerView, CountriesSearchFragment()).commit()
             }
         }
     }

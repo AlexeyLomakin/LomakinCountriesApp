@@ -20,7 +20,7 @@ class CountriesDetailsFragment : Fragment(R.layout.details_fragment) {
         with(binding) {
 
             requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.FragmentContainerView, CountriesSearchFragment()).commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.FragmentContainerView, CountriesListFragment()).commit()
             }.isEnabled = true
 
             requireActivity().supportFragmentManager.setFragmentResultListener(
