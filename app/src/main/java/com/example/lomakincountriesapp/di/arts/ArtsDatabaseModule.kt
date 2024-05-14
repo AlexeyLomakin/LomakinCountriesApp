@@ -2,8 +2,8 @@ package com.example.lomakincountriesapp.di.arts
 
 import android.content.Context
 import androidx.room.Room
-import com.example.data.room.ArtsDao
-import com.example.data.room.ArtsDatabase
+import com.example.data.room.arts.ArtsDao
+import com.example.data.room.arts.ArtsDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DatabaseModule {
+object ArtsDatabaseModule {
     @Singleton
     @Provides
     fun provideArtsDatabase(@ApplicationContext context: Context): ArtsDatabase {
@@ -30,4 +30,5 @@ object DatabaseModule {
     fun provideArtsDao(artsDatabase: ArtsDatabase): ArtsDao {
         return artsDatabase.artsDatabaseDao
     }
+
 }

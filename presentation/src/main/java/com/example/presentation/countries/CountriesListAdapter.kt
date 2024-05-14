@@ -3,20 +3,18 @@ package com.example.presentation.countries
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
+import com.example.domain.countries.CountriesDomainEntity
 import com.example.presentation.R
-import com.example.presentation.countries.dataclasses.Country
 import com.example.presentation.databinding.CountryFragmentBinding
 
-class CountriesAdapter(
-    private val countriesList: List<Country>,
-) : RecyclerView.Adapter<CountriesAdapter.CountriesViewHolder>() {
+class CountriesListAdapter() : ListAdapter<CountriesDomainEntity,CountriesListAdapter.CountriesViewHolder>(diffUtil) {
 
     private lateinit var onItemClickListener: OnItemClickListener
-
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
@@ -31,9 +29,9 @@ class CountriesAdapter(
                 listener.onItemClick(bindingAdapterPosition)
             }
         }
-        fun bind(country: Country) {
-            bindings.countryName.text = country.name?.common
-            Glide.with(itemView.context).load(country.flags?.png).into(bindings.flag)
+        fun bind(country: CountriesDomainEntity) {
+            bindings.countryName.text = country.name
+            Glide.with(itemView.context).load(country.flags).into(bindings.flag)
         }
     }
 
@@ -48,8 +46,17 @@ class CountriesAdapter(
         return CountriesViewHolder(view,onItemClickListener)
     }
 
-    override fun getItemCount(): Int = countriesList.size
-
     override fun onBindViewHolder(viewHolder: CountriesViewHolder, position: Int) =
-        viewHolder.bind(countriesList[position])
+        viewHolder.bind(getItem(position))
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<CountriesDomainEntity>() {
+            override fun areItemsTheSame(oldItem: CountriesDomainEntity, newItem: CountriesDomainEntity): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: CountriesDomainEntity, newItem: CountriesDomainEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 }

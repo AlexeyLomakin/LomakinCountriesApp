@@ -1,6 +1,9 @@
 package com.example.data.room
 
-import com.example.domain.ArtsDomainEntity
+import com.example.data.room.arts.ArtsRoomEntity
+import com.example.data.room.countries.CountriesRoomEntity
+import com.example.domain.arts.ArtsDomainEntity
+import com.example.domain.countries.CountriesDomainEntity
 import javax.inject.Inject
 
 interface Mapper<I,O> {
@@ -18,5 +21,18 @@ class RoomArtsMapper @Inject constructor() : Mapper<ArtsRoomEntity, ArtsDomainEn
            imageUrl = input.imageUrl,
            currentPage = input.currentPage
        )
+    }
+}
+class RoomCountriesMapper @Inject constructor() : Mapper<CountriesRoomEntity, CountriesDomainEntity>{
+    override fun map(input: CountriesRoomEntity): CountriesDomainEntity {
+        return CountriesDomainEntity(
+            id = input.id ,
+            area = input.area,
+            name = input.name,
+            population = input.population,
+            languages = input.languages,
+            flags = input.flags,
+            capital = input.capital
+        )
     }
 }

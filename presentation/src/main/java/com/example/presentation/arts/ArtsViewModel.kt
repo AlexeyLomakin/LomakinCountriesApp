@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.ArtsDomainEntity
-import com.example.domain.usecases.GetAllArtsUseCase
-import com.example.domain.usecases.SaveAllArtsUseCase
+import com.example.domain.arts.ArtsDomainEntity
+import com.example.domain.arts.usecases.GetAllArtsUseCase
+import com.example.domain.arts.usecases.SaveAllArtsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

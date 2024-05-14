@@ -1,6 +1,6 @@
-package com.example.domain.usecases
+package com.example.domain.arts.usecases
 
-import com.example.domain.ArtsRepository
+import com.example.domain.arts.ArtsRepository
 import javax.inject.Inject
 
 class SaveAllArtsUseCaseImpl @Inject constructor(

@@ -1,8 +1,8 @@
-package com.example.domain.usecases
+package com.example.domain.arts.usecases
 
 import androidx.lifecycle.LiveData
-import com.example.domain.ArtsDomainEntity
-import com.example.domain.ArtsRepository
+import com.example.domain.arts.ArtsDomainEntity
+import com.example.domain.arts.ArtsRepository
 import javax.inject.Inject
 
 class GetAllArtsUseCaseImpl @Inject constructor(
