@@ -15,9 +15,9 @@ class CountriesRepositoryImpl @Inject constructor(
 ): CountriesRepository {
     override suspend fun saveAllCountries() {
         try {
-            val response = countriesService.getAllCountries().body()
-            val countriesRoomEntityList = response?.map { list ->
-                CountriesRoomEntity(
+            val response = countriesService.getAllCountries()
+            val countriesRoomEntityList = response.body()?.map { list ->
+                val countriesRoomEntity = CountriesRoomEntity(
                     name = list.name?.official.toString(),
                     area = list.area,
                     population = list.population,
@@ -25,10 +25,12 @@ class CountriesRepositoryImpl @Inject constructor(
                     capital = list.capital.toString(),
                     flags = list.flags?.png.toString(),
                 )
+                countriesRoomEntity
             }
+
             if (!countriesRoomEntityList.isNullOrEmpty()) {
                 countriesDao.insertCountries(countriesRoomEntityList)
-                Timber.d("added ${response.size} countries")
+                Timber.d("added ${response.body()?.size} countries")
             } else {
                 Timber.d("Response is empty")
 

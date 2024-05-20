@@ -13,7 +13,7 @@ interface CountriesDao {
     fun getAllCountries(): LiveData<List<CountriesRoomEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCountries(arts: List<CountriesRoomEntity>)
+    fun insertCountries(countries: List<CountriesRoomEntity>)
 
     @Query("select * from countries_database where name = :name")
     fun getCountryByName(name: String): LiveData<CountriesDomainEntity>

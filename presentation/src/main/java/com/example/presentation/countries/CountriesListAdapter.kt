@@ -48,10 +48,11 @@ class CountriesListAdapter() : ListAdapter<CountriesDomainEntity,CountriesListAd
 
     override fun onBindViewHolder(viewHolder: CountriesViewHolder, position: Int) =
         viewHolder.bind(getItem(position))
+
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<CountriesDomainEntity>() {
             override fun areItemsTheSame(oldItem: CountriesDomainEntity, newItem: CountriesDomainEntity): Boolean =
-                oldItem.id == newItem.id
+                oldItem == newItem
 
             override fun areContentsTheSame(oldItem: CountriesDomainEntity, newItem: CountriesDomainEntity): Boolean {
                 return oldItem == newItem
