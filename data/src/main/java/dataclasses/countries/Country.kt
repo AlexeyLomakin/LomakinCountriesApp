@@ -1,4 +1,4 @@
-package dataclasses.arts.countries
+package dataclasses.countries
 
 import java.math.BigDecimal
 

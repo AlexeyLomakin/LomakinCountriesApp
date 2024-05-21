@@ -1,4 +1,4 @@
-package dataclasses.arts.countries
+package dataclasses.countries
 
 data class Name(
     val common: String?,

@@ -29,7 +29,7 @@ class RoomCountriesMapper @Inject constructor() : Mapper<CountriesRoomEntity, Co
             id = input.id ,
             area = input.area,
             name = input.name,
-            population = input.population,
+            population = input.population?.toULong(),
             languages = input.languages,
             flags = input.flags,
             capital = input.capital

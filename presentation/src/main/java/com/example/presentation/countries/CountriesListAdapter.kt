@@ -12,7 +12,7 @@ import com.example.domain.countries.CountriesDomainEntity
 import com.example.presentation.R
 import com.example.presentation.databinding.CountryFragmentBinding
 
-class CountriesListAdapter() : ListAdapter<CountriesDomainEntity,CountriesListAdapter.CountriesViewHolder>(diffUtil) {
+class CountriesListAdapter() : ListAdapter<CountriesDomainEntity,CountriesListAdapter.CountriesListViewHolder>(diffUtil) {
 
     private lateinit var onItemClickListener: OnItemClickListener
     interface OnItemClickListener {
@@ -22,7 +22,7 @@ class CountriesListAdapter() : ListAdapter<CountriesDomainEntity,CountriesListAd
     fun setOnItemClickListener(listener: OnItemClickListener) {
         onItemClickListener = listener
     }
-    class CountriesViewHolder(view: View, listener: OnItemClickListener) : ViewHolder(view) {
+    class CountriesListViewHolder(view: View, listener: OnItemClickListener) : ViewHolder(view) {
         private val bindings by viewBinding(CountryFragmentBinding::bind)
         init {
             view.setOnClickListener {
@@ -37,16 +37,16 @@ class CountriesListAdapter() : ListAdapter<CountriesDomainEntity,CountriesListAd
 
     override fun onCreateViewHolder(
         viewGroup: ViewGroup, viewType: Int
-    ): CountriesViewHolder {
+    ): CountriesListViewHolder {
 
         val view = LayoutInflater.from(viewGroup.context.applicationContext).inflate(
             R.layout.country_fragment, viewGroup, false
         )
 
-        return CountriesViewHolder(view,onItemClickListener)
+        return CountriesListViewHolder(view,onItemClickListener)
     }
 
-    override fun onBindViewHolder(viewHolder: CountriesViewHolder, position: Int) =
+    override fun onBindViewHolder(viewHolder: CountriesListViewHolder, position: Int) =
         viewHolder.bind(getItem(position))
 
     companion object {

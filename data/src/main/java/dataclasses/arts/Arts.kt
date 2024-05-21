@@ -1,4 +1,4 @@
-package dataclasses.arts.arts
+package dataclasses.arts
 
 data class Arts(
     val id: Long?,

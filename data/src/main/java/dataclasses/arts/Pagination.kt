@@ -1,4 +1,4 @@
-package dataclasses.arts.arts
+package dataclasses.arts
 
 data class Pagination(
     val current_page: Int?,

@@ -1,7 +1,7 @@
 package com.example.data.room.arts
 
 
-import dataclasses.arts.arts.Artworks
+import dataclasses.arts.Artworks
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

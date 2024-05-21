@@ -21,7 +21,7 @@ class CountriesRepositoryImpl @Inject constructor(
                     name = list.name?.official.toString(),
                     area = list.area,
                     population = list.population,
-                    languages = list.languages.toString(),
+                    languages = list.languages,
                     capital = list.capital.toString(),
                     flags = list.flags?.png.toString(),
                 )

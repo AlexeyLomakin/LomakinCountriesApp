@@ -17,7 +17,7 @@ data class CountriesRoomEntity(
     var capital: String? = null,
 
     @ColumnInfo(name = "languages")
-    var languages: String? = null,
+    var languages: Map<String?, String?> = mapOf(),
 
     @ColumnInfo(name = "flags")
     var flags: String? = null,

@@ -1,4 +1,4 @@
-package dataclasses.arts.arts
+package dataclasses.arts
 
 data class Artworks (
     val pagination: Pagination?,

@@ -6,7 +6,7 @@ data class CountriesDomainEntity(
     val id: Long,
     val name: String?,
     val capital: String?,
-    val languages: String?,
+    val languages: Map<String?, String?>?,
     val area: BigDecimal?,
     val population: ULong?,
     val flags: String?,

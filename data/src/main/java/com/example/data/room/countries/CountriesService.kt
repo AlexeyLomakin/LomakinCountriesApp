@@ -1,6 +1,6 @@
 package com.example.data.room.countries
 
-import dataclasses.arts.countries.Country
+import dataclasses.countries.Country
 import retrofit2.Response
 import retrofit2.http.GET
 
