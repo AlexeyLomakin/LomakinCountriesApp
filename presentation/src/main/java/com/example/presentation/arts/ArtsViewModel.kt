@@ -27,8 +27,8 @@ class ArtsViewModel @Inject constructor(
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> get() = _error
+    private val _error = MutableLiveData<String?>()
+    val error: MutableLiveData<String?> get() = _error
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

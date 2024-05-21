@@ -29,9 +29,7 @@ class CountriesDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             val country = getCountryByNameUseCase(name).value
             _country.postValue(country!!)
-            country.let {
-                loadCountryFlag(it.flags.toString())
-            }
+            loadCountryFlag(country.flags.toString())
         }
     }
 

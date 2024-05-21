@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
-    private val getAllCountriesUseCase: GetAllCountriesUseCase,
+    getAllCountriesUseCase: GetAllCountriesUseCase,
     private val saveAllCountriesUseCase: SaveAllCountriesUseCase
 ) : ViewModel() {
 
@@ -30,8 +30,8 @@ class CountriesViewModel @Inject constructor(
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> get() = _error
+    private val _error = MutableLiveData<String?>()
+    val error: MutableLiveData<String?> get() = _error
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -46,7 +46,7 @@ class CountriesViewModel @Inject constructor(
 
     private suspend fun loadAllCountries() {
         _loading.postValue(true)
-        _error.postValue(null) // Сброс ошибки перед новой загрузкой
+        _error.postValue(null)
 
         try {
             saveAllCountriesUseCase()
