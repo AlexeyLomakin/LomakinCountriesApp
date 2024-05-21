@@ -6,7 +6,7 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.presentation.arts.ArtsFragment
+import com.example.presentation.arts.ArtsListFragment
 import com.example.presentation.countries.CountriesListFragment
 import com.example.presentation.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +33,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             artsListButton.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.FragmentContainerView, ArtsFragment()).commit()
+                    .replace(R.id.FragmentContainerView, ArtsListFragment()).commit()
             }
 
             countriesListButton.setOnClickListener {

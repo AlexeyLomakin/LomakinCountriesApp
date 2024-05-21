@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
-    getAllCountriesUseCase: GetAllCountriesUseCase,
-    private val saveAllCountriesUseCase: SaveAllCountriesUseCase,
+    private val getAllCountriesUseCase: GetAllCountriesUseCase,
+    private val saveAllCountriesUseCase: SaveAllCountriesUseCase
 ) : ViewModel() {
 
     val countriesData: LiveData<PagingData<CountriesDomainEntity>> =
@@ -26,6 +26,12 @@ class CountriesViewModel @Inject constructor(
 
     private val _isMaxCountries = MutableLiveData<Boolean>()
     val isMaxCountries: LiveData<Boolean> = _isMaxCountries
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -39,7 +45,16 @@ class CountriesViewModel @Inject constructor(
     }
 
     private suspend fun loadAllCountries() {
-        saveAllCountriesUseCase()
+        _loading.postValue(true)
+        _error.postValue(null) // Сброс ошибки перед новой загрузкой
+
+        try {
+            saveAllCountriesUseCase()
+        } catch (e: Exception) {
+            _error.postValue("Failed to load data: ${e.message}")
+        } finally {
+            _loading.postValue(false)
+        }
     }
 }
 

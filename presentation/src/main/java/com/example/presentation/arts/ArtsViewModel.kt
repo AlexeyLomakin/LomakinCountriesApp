@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ArtsViewModel @Inject constructor(
     getAllArtsUseCase: GetAllArtsUseCase,
-    private val saveAllArtsUseCase: SaveAllArtsUseCase,
+    private val saveAllArtsUseCase: SaveAllArtsUseCase
 ) : ViewModel() {
 
     private var currentPage = 1
@@ -23,6 +23,12 @@ class ArtsViewModel @Inject constructor(
     val isMaxArts: LiveData<Boolean> = _isMaxArts
     val artsData: LiveData<List<ArtsDomainEntity>> = getAllArtsUseCase()
     private var totalPages: Int? = null
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -42,13 +48,29 @@ class ArtsViewModel @Inject constructor(
     }
 
     private suspend fun loadFirstPage() {
-        saveAllArtsUseCase(FIRST_PAGE_NUM)
+        _loading.postValue(true)
+        _error.postValue(null)
+        try {
+            saveAllArtsUseCase(FIRST_PAGE_NUM)
+        } catch (e: Exception) {
+            _error.postValue("Failed to load data: ${e.message}")
+        } finally {
+            _loading.postValue(false)
+        }
     }
 
     private suspend fun loadPages(page: Int) {
-        saveAllArtsUseCase(page)
-        if (totalPages == null) {
-            totalPages = artsData.value?.firstOrNull()?.totalPage
+        _loading.postValue(true)
+        _error.postValue(null)
+        try {
+            saveAllArtsUseCase(page)
+            if (totalPages == null) {
+                totalPages = artsData.value?.firstOrNull()?.totalPage
+            }
+        } catch (e: Exception) {
+            _error.postValue("Failed to load data: ${e.message}")
+        } finally {
+            _loading.postValue(false)
         }
     }
 
