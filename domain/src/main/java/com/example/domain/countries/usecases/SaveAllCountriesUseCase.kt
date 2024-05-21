@@ -5,9 +5,9 @@ import javax.inject.Inject
 
 class SaveAllCountriesUseCaseImpl @Inject constructor(
     private val countriesRepository: CountriesRepository
-): SaveAllCountriesUseCase {
+) : SaveAllCountriesUseCase {
 
-    override suspend fun invoke(){
+    override suspend fun invoke() {
         countriesRepository.saveAllCountries()
     }
 }
