@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
-    private val getAllCountriesUseCase: GetAllCountriesUseCase,
+    getAllCountriesUseCase: GetAllCountriesUseCase,
     private val saveAllCountriesUseCase: SaveAllCountriesUseCase,
 ) : ViewModel() {
 
