@@ -19,10 +19,10 @@ object ArtsDatabaseModule {
     @Provides
     fun provideArtsDatabase(@ApplicationContext context: Context): ArtsDatabase {
         return Room.databaseBuilder(
-            context.applicationContext,
-            ArtsDatabase::class.java,
-            "arts_database"
-        ).fallbackToDestructiveMigration().build()
+                context.applicationContext,
+                ArtsDatabase::class.java,
+                "arts_database"
+            ).fallbackToDestructiveMigration(false).build()
     }
 
     @Singleton

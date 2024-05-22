@@ -22,26 +22,30 @@ class CountriesRepositoryImpl @Inject constructor(
 
     override suspend fun saveAllCountries() {
         try {
+            Timber.d("Starting to fetch countries from API")
             val response = countriesService.getAllCountries()
-            val countriesRoomEntityList = response.body()?.map { list ->
-                CountriesRoomEntity(
-                    name = list.name?.official.toString(),
-                    area = list.area,
-                    population = list.population,
-                    languages = list.languages,
-                    capital = list.capital.toString(),
-                    flags = list.flags?.png.toString(),
-                )
-            }
-
-            if (!countriesRoomEntityList.isNullOrEmpty()) {
-                countriesDao.insertCountries(countriesRoomEntityList)
-                Timber.d("Added ${response.body()?.size} countries")
+            if (response.isSuccessful) {
+                val countriesRoomEntityList = response.body()?.map { list ->
+                    CountriesRoomEntity(
+                        name = list.name?.official.toString(),
+                        area = list.area,
+                        population = list.population,
+                        languages = list.languages,
+                        capital = list.capital.toString(),
+                        flags = list.flags?.png.toString(),
+                    )
+                }
+                if (!countriesRoomEntityList.isNullOrEmpty()) {
+                    countriesDao.insertCountries(countriesRoomEntityList)
+                    Timber.d("Added ${response.body()?.size} countries to database")
+                } else {
+                    Timber.d("Response is empty")
+                }
             } else {
-                Timber.d("Response is empty")
+                Timber.e("Failed to fetch countries: ${response.errorBody()?.string()}")
             }
         } catch (e: Exception) {
-            Timber.e(e)
+            Timber.e(e, "Exception occurred while fetching countries")
         }
     }
 
@@ -55,7 +59,7 @@ class CountriesRepositoryImpl @Inject constructor(
 
     override fun getCountryByName(name: String): LiveData<CountriesDomainEntity> {
         return countriesDao.getCountryByName(name)
-    }
+        }
 
     override fun getCountriesPaged(): Flow<PagingData<CountriesDomainEntity>> {
         val pagingSourceFactory = { countriesDao.getAllCountriesPaged() }
@@ -70,5 +74,7 @@ class CountriesRepositoryImpl @Inject constructor(
         }
     }
 }
+
+
 
 

@@ -18,10 +18,10 @@ object CountriesDatabaseModule {
     @Provides
     fun provideCountriesDatabase(@ApplicationContext context: Context): CountriesDatabase {
         return Room.databaseBuilder(
-            context.applicationContext,
-            CountriesDatabase::class.java,
-            "countries_database"
-        ).fallbackToDestructiveMigration().build()
+                context.applicationContext,
+                CountriesDatabase::class.java,
+                "countries_database"
+            ).fallbackToDestructiveMigration(false).build()
     }
 
     @Singleton

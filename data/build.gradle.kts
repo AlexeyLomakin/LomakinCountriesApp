@@ -56,6 +56,9 @@ dependencies {
 
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
+
     // Paging 3
     implementation ("androidx.paging:paging-runtime:3.1.0")
+
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
 }

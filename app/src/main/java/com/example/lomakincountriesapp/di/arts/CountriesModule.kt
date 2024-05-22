@@ -13,51 +13,60 @@ import com.example.domain.countries.usecases.GetCountryByNameUseCase
 import com.example.domain.countries.usecases.GetCountryByNameUseCaseImpl
 import com.example.domain.countries.usecases.SaveAllCountriesUseCase
 import com.example.domain.countries.usecases.SaveAllCountriesUseCaseImpl
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class CountriesModule {
-    @Singleton
-    @Provides
-    fun provideCountriesService(): CountriesService {
-        val baseUrl = "https://restcountries.com/v3.1/"
-        val retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(baseUrl)
-            .build()
-        return retrofit.create(CountriesService::class.java)
-    }
-    @Singleton
-    @Provides
-    fun provideCountriesRepository(impl : CountriesRepositoryImpl): CountriesRepository {
-        return impl
-    }
+abstract class CountriesModule {
 
-    @Singleton
-    @Provides
-    fun provideMapper(map: RoomCountriesMapper): Mapper<CountriesRoomEntity, CountriesDomainEntity> {
-        return map
-    }
+    @Binds
+    abstract fun bindCountriesRepository(impl: CountriesRepositoryImpl): CountriesRepository
 
-    @Provides
-    fun provideGetAllCountriesUseCase(getAllCountries: GetAllCountriesUseCaseImpl): GetAllCountriesUseCase {
-        return getAllCountries
-    }
+    @Binds
+    abstract fun bindMapper(map: RoomCountriesMapper): Mapper<CountriesRoomEntity, CountriesDomainEntity>
 
-    @Provides
-    fun provideSaveAllCountriesUseCase(saveAllCountries: SaveAllCountriesUseCaseImpl): SaveAllCountriesUseCase {
-        return saveAllCountries
-    }
+    @Binds
+    abstract fun bindGetAllCountriesUseCase(getAllCountries: GetAllCountriesUseCaseImpl): GetAllCountriesUseCase
 
-    @Provides
-    fun  getCountryByName(getCountryByName: GetCountryByNameUseCaseImpl): GetCountryByNameUseCase {
-        return getCountryByName
+    @Binds
+    abstract fun bindSaveAllCountriesUseCase(saveAllCountries: SaveAllCountriesUseCaseImpl): SaveAllCountriesUseCase
+
+    @Binds
+    abstract fun bindGetCountryByNameUseCase(getCountryByName: GetCountryByNameUseCaseImpl): GetCountryByNameUseCase
+
+    companion object {
+
+        @Singleton
+        @Provides
+        fun provideCountriesService(retrofit: Retrofit): CountriesService {
+            return retrofit.create(CountriesService::class.java)
+        }
+
+        @Singleton
+        @Provides
+        fun provideRetrofit(): Retrofit {
+            val baseUrl = "https://restcountries.com/v3.1/"
+            val logging = HttpLoggingInterceptor().apply {
+                setLevel(HttpLoggingInterceptor.Level.BODY)
+            }
+            val client = OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .build()
+            return Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(baseUrl)
+                .client(client)
+                .build()
+        }
     }
 }
+
