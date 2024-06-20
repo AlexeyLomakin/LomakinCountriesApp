@@ -1,4 +1,4 @@
-package com.example.presentation.countries.dataclasses
+package dataclasses.countries
 
 data class Flags(
     val png: String?,

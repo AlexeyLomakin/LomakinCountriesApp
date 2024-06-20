@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
-import com.example.domain.ArtsDomainEntity
+import com.example.domain.arts.ArtsDomainEntity
 import com.example.presentation.R
 import com.example.presentation.databinding.ArtFragmentBinding
 

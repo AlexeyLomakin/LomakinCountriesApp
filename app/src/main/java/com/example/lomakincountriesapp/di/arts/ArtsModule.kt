@@ -1,16 +1,16 @@
 package com.example.lomakincountriesapp.di.arts
 
-import com.example.data.room.ArtRepositoryImpl
-import com.example.data.room.ArtsRoomEntity
-import com.example.data.room.ArtsService
 import com.example.data.room.Mapper
 import com.example.data.room.RoomArtsMapper
-import com.example.domain.ArtsDomainEntity
-import com.example.domain.ArtsRepository
-import com.example.domain.usecases.GetAllArtsUseCase
-import com.example.domain.usecases.GetAllArtsUseCaseImpl
-import com.example.domain.usecases.SaveAllArtsUseCase
-import com.example.domain.usecases.SaveAllArtsUseCaseImpl
+import com.example.data.room.arts.ArtRepositoryImpl
+import com.example.data.room.arts.ArtsRoomEntity
+import com.example.data.room.arts.ArtsService
+import com.example.domain.arts.ArtsDomainEntity
+import com.example.domain.arts.ArtsRepository
+import com.example.domain.arts.usecases.GetAllArtsUseCase
+import com.example.domain.arts.usecases.GetAllArtsUseCaseImpl
+import com.example.domain.arts.usecases.SaveAllArtsUseCase
+import com.example.domain.arts.usecases.SaveAllArtsUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,7 +47,7 @@ class ArtsModule {
     }
 
     @Provides
-    fun provideGetAllArtsUseCase(getAllArts: GetAllArtsUseCaseImpl): GetAllArtsUseCase{
+    fun provideGetAllArtsUseCase(getAllArts: GetAllArtsUseCaseImpl): GetAllArtsUseCase {
         return getAllArts
     }
 
