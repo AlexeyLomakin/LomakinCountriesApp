@@ -12,7 +12,7 @@ From the very beginning, I started learning development from simple things witho
 
 Then, with each branch, I started adding more complex and interesting things to this project.
 
-Currently, the MVVM architecture is implemented, DaggerHealth is used for DI, Retrofit (for REST requests) + Glide (for receiving and inserting images) is used to get data from the API, the Room database is used to store data in the application, Gson is used for Json parsing, viewbinding is used for ease of accessing UI elements
+Currently, the MVVM architecture is implemented, Dagger Hilt is used for DI, Retrofit (for REST requests) + Glide (for receiving and inserting images) is used to get data from the API, the Room database is used to store data in the application, Gson is used for Json parsing, viewbinding is used for ease of accessing UI elements
 
 
 ## Developers
