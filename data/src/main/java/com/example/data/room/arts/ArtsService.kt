@@ -1,4 +1,4 @@
-package com.example.data.room
+package com.example.data.room.arts
 
 
 import dataclasses.arts.Artworks

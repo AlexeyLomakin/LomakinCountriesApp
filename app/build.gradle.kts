@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id ("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -41,7 +41,6 @@ android {
 }
 
 dependencies {
-
     implementation(project(":presentation"))
     implementation(project(":domain"))
     implementation(project(":data"))
@@ -55,30 +54,28 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    //Gson
-    implementation ("com.google.code.gson:gson:2.10.1")
+    // Gson
+    implementation("com.google.code.gson:gson:2.10.1")
 
-    //retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    //coroutines
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    //Hilt
-    implementation ("com.google.dagger:hilt-android:2.50")
-    kapt ("com.google.dagger:hilt-android-compiler:2.50")
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.50")
+    ksp("com.google.dagger:hilt-android-compiler:2.50")
 
-    //Room
-    val room_version = "2.6.1"
-    implementation ("androidx.room:room-runtime:$room_version")
-    annotationProcessor ("androidx.room:room-compiler:$room_version")
-    kapt ("androidx.room:room-compiler:$room_version")
+    // Room
+    val room_version = "2.7.0-alpha02"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
-    //Timber
-    implementation ("com.jakewharton.timber:timber:5.0.1")
-}
-kapt {
-    correctErrorTypes = true
+    // Timber
+    implementation("com.jakewharton.timber:timber:5.0.1")
+
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
 }

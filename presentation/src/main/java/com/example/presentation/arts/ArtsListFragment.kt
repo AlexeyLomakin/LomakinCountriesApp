@@ -16,28 +16,14 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
-
-    private val viewModel: ArtsViewModel by viewModels()
+class ArtsListFragment : Fragment(R.layout.arts_list_fragment) {
 
     private val binding by viewBinding(ArtsListFragmentBinding::bind)
-    private var adapter = ArtsAdapter()
-
-    inner class ArtsScrollListener : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-            if (recyclerView.canScrollVertically(newState)) {
-                viewModel.onPageFinished()
-            } else {
-                Toast.makeText(requireContext(), "The arts are over", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
+    private val viewModel: ArtsViewModel by viewModels()
+    private val adapter = ArtsAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity()
@@ -47,18 +33,40 @@ class ArtsFragment : Fragment(R.layout.arts_list_fragment) {
                 .commit()
         }.isEnabled = true
 
-        binding.artList.layoutManager = LinearLayoutManager(requireContext())
-        binding.artList.addItemDecoration(divider)
-        binding.artList.adapter = adapter
-        binding.artList.addOnScrollListener(ArtsScrollListener())
+        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
 
-        viewModel.artsData.observe(viewLifecycleOwner) { arts ->
-            adapter.submitList(arts)
+        binding.artList.layoutManager = LinearLayoutManager(requireContext())
+        binding.artList.adapter = adapter
+        binding.artList.addItemDecoration(divider)
+
+        viewModel.artsData.observe(viewLifecycleOwner) { artsData ->
+            adapter.submitList(artsData)
         }
 
-        viewModel.isMaxArts.observe(viewLifecycleOwner) { maxArts ->
-            if (maxArts) {
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        binding.artList.addOnScrollListener(ArtsScrollListener())
+
+        viewModel.isMaxArts.observe(viewLifecycleOwner) {
+            if (it) {
                 Toast.makeText(requireContext(), "The arts are over", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    inner class ArtsScrollListener : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (!recyclerView.canScrollVertically(1)) {
+                viewModel.onPageFinished()
             }
         }
     }

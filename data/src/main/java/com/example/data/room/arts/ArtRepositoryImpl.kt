@@ -1,9 +1,10 @@
-package com.example.data.room
+package com.example.data.room.arts
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.example.domain.ArtsDomainEntity
-import com.example.domain.ArtsRepository
+import com.example.data.room.Mapper
+import com.example.domain.arts.ArtsDomainEntity
+import com.example.domain.arts.ArtsRepository
 import timber.log.Timber
 import javax.inject.Inject
 

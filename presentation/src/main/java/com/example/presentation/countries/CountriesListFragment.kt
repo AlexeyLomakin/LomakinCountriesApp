@@ -4,27 +4,25 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.MainFragment
 import com.example.presentation.R
 import com.example.presentation.databinding.CountriesListFragmentBinding
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
+@AndroidEntryPoint
 class CountriesListFragment : Fragment(R.layout.countries_list_fragment) {
 
-    private val baseUrl = "https://restcountries.com/v3.1/"
     private val binding by viewBinding(CountriesListFragmentBinding::bind)
+    private val viewModel: CountriesViewModel by viewModels()
+    private val adapter = CountriesListAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,54 +37,63 @@ class CountriesListFragment : Fragment(R.layout.countries_list_fragment) {
 
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
 
-        val retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(baseUrl)
-            .build()
+        binding.countriesList.layoutManager = LinearLayoutManager(requireContext())
+        binding.countriesList.adapter = adapter
+        binding.countriesList.addItemDecoration(divider)
 
-        val retrofitService: CountriesService = retrofit
-            .create(CountriesService::class.java)
+        viewModel.countriesData.observe(viewLifecycleOwner) { pagingData ->
+            lifecycleScope.launch {
+                adapter.submitData(pagingData)
+            }
+        }
 
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
 
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            }
+        }
 
-            val countriesListResponse = retrofitService
-                .getAllCountries()
-            if (countriesListResponse.isSuccessful) {
-
-                val countriesList = countriesListResponse.body()?.sortedBy {country ->
-                    country.name?.common
-                }
-                withContext(Dispatchers.Main) {
-                    val countriesListAdapter = countriesList?.let { CountriesAdapter(it) }
-                    binding.countriesList.adapter = countriesListAdapter
-                    binding.countriesList.layoutManager = LinearLayoutManager(requireContext())
-                    binding.countriesList.addItemDecoration(divider)
-                    countriesListAdapter?.setOnItemClickListener(object : CountriesAdapter.OnItemClickListener {
-                        override fun onItemClick(position: Int) {
-                            val country = countriesList[position]
-                            val jsonString = Gson().toJson(country)
-                            setFragmentResult(
-                                EXTRA_COUNTRY_REQUESTED_KEY,
-                                bundleOf(COUNTRY_BUNDLE_KEY to jsonString)
-                            )
-
-                            requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(R.id.FragmentContainerView, CountriesDetailsFragment()).commit()
-                            }
-                        })
+        adapter.setOnItemClickListener(object : CountriesListAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val country = adapter.snapshot()[position]
+                if (country != null) {
+                    val bundle = Bundle().apply {
+                        putString("COUNTRY_NAME_KEY", country.name)
+                    }
+                    val fragment = CountriesDetailsFragment().apply {
+                        arguments = bundle
+                    }
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.FragmentContainerView, fragment)
+                        .addToBackStack(null)
+                        .commit()
                 }
             }
-            else{
-                countriesListResponse.message().also{
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-                }
-                
+        })
+
+        binding.countriesList.addOnScrollListener(ArtsScrollListener())
+
+        viewModel.isMaxCountries.observe(viewLifecycleOwner) {
+            if (it) {
+                Toast.makeText(requireContext(), "The countries are over", Toast.LENGTH_LONG).show()
             }
         }
     }
-    companion object {
-        private const val EXTRA_COUNTRY_REQUESTED_KEY = "EXTRA_COUNTRY_REQUESTED_KEY"
-        private const val COUNTRY_BUNDLE_KEY = "COUNTRY_BUNDLE_KEY"
+
+    inner class ArtsScrollListener : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (!recyclerView.canScrollVertically(1)) {
+                viewModel.onPageFinished()
+            }
+        }
     }
 }
+
+
+
+
